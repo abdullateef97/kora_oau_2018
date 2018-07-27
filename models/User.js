@@ -113,11 +113,11 @@ module.exports.createUser = (newUser, cb) => {
 };
 
 module.exports.getUserByEmail = (email, cb) => {
-    return Promise.resolve(User.find({email}, cb));
+    return Promise.resolve(User.findOne({email}, cb));
 };
 
 module.exports.getUserByPhone = (phone, cb) => {
-    return Promise.resolve(User.find({phone}, cb));
+    return Promise.resolve(User.findOne({phone}, cb));
 };
 
 module.exports.comparePin = (pin, hash, cb) => {

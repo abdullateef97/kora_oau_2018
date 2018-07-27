@@ -11,50 +11,54 @@ const Wallet = require('./Wallet');
 // User Schema
 //================================
 const UserSchema = new Schema({
-    first_name: {
-        type: String,
-        required: true
-    },
-    last_name: {
-        type: String,
-        required: true
-    },
-    phone: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    pin: {
-        type: String,
-        required: true
-    },
-    tokens: [{
-        access: {
+        first_name: {
             type: String,
             required: true
         },
-        token: {
+        last_name: {
             type: String,
             required: true
-        }
-    }],
-    bank: {
-        name: String,
-        code: String
+        },
+        phone: {
+            type: String,
+            required: true
+        },
+        email: {
+            type: String,
+            required: true
+        },
+        pin: {
+            type: String,
+            required: true
+        },
+        tokens: [{
+            access: {
+                type: String,
+                required: true
+            },
+            token: {
+                type: String,
+                required: true
+            }
+        }],
+        bank: {
+            name: String,
+            code: String
+        },
+        card: [],
+        //Create card model- owner, cvv, expiry date, card no
+        wallets: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Wallet'
+        }],
+        kolo: [],
+        //Create kolo model <= 3
+        isAdmin: {type: Boolean, default: false},
     },
-    card: [],
-    //Create card model- owner, cvv, expiry date, card no
-    wallets: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Wallet'
-    }],
-    kolo: [],
-    //Create kolo model <= 3
-    isAdmin: {type: Boolean, default: false},
-}, {timestamp: true});
+    {
+        usePushEach: true, timestamp: true
+    }
+);
 
 
 UserSchema.statics.findByToken = function (token) {
@@ -95,15 +99,6 @@ UserSchema.methods.toJSON = function () {
     const userObject = user.toObject();
 
     return _.pick(userObject, ['_id', 'first_name', 'last_name', 'phone', 'email', 'bank', 'card', 'wallet'])
-};
-
-UserSchema.methods.createWallet = function () {
-    const user = this;
-    const newWallet = new Wallet({owner: user._id});
-    return newWallet.save().then((wallet) => {
-        user.wallet = wallet._id;
-        user.save();
-    });
 };
 
 const User = module.exports = mongoose.model('User', UserSchema);

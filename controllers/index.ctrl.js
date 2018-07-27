@@ -30,11 +30,11 @@ const registerUser = (req, res) => {
     if (pin.length < Constants.PIN_LENGTH)
         return sendError(res, null, ResponseMessages.PIN_LENGTH, 400);
 
-    // if (!validator.isNumeric(parseInt(pin)))
-    //     return sendError(res, null, ResponseMessages.PIN_SHOULD_CONTAIN, 400);
-    //
-    // if (phone.slice(0, 4) !== '+234' || parseInt(phone).length !== 10)
-    //     return sendError(res, null, ResponseMessages.INVALID_PHONE, 400);
+    if (!validator.isNumeric(pin))
+        return sendError(res, null, ResponseMessages.PIN_SHOULD_CONTAIN, 400);
+
+    if (phone.length !== 11)
+        return sendError(res, null, ResponseMessages.INVALID_PHONE, 400);
 
     const params = {
         first_name: firstName,
@@ -45,6 +45,7 @@ const registerUser = (req, res) => {
     };
 
     User.getUserByEmail(email, (err, user) => {
+        console.log('User => ', user);
         if (err) return Promise.reject();
         if (user && user.length > 0) return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
 
@@ -59,7 +60,6 @@ const registerUser = (req, res) => {
                     if (err || !_user) return Promise.reject();
 
                     if (_user) {
-                        _user.createWallet();
                         return _user.generateAuthToken().then((token) => {
                             console.log(token, 'new token');
 
@@ -77,50 +77,50 @@ const registerUser = (req, res) => {
     }).catch((err) => sendError(res, err, err.message, err.status));
 }
 
-    /**
-     * Login user successfully
-     * @param req
-     * @param res
-     * @returns {*}
-     */
-    const handleLogin = (req, res) => {
-        const email = req.body.email;
-        const pin = req.body.pin;
+/**
+ * Login user successfully
+ * @param req
+ * @param res
+ * @returns {*}
+ */
+const handleLogin = (req, res) => {
+    const email = req.body.email;
+    const pin = req.body.pin;
 
-        return User.getUserByPhone(phone, function (err, user) {
+    return User.getUserByPhone(phone, function (err, user) {
+        if (err) return Promise.reject();
+
+        if (!user)
+            return sendError(res, null, ResponseMessages.INCORRECT_LOGIN_PARAMS, 400);
+
+        User.comparePin(pin, user.pin, (err, isMatch) => {
             if (err) return Promise.reject();
 
-            if (!user)
-                return sendError(res, null, ResponseMessages.INCORRECT_LOGIN_PARAMS, 400);
+            if (isMatch) {
+                const userInfo = setUserInfo(user);
+                const token = 'bearer ' + generateUserToken(userInfo);
+                req.user = user;
+                return sendSuccess(res, req.user, ResponseMessages.LOGIN_SUCCESSFUL, token);
+            } else {
+                return sendError(res, null, ResponseMessages.INCORRECT_PIN, 400);
+            }
+        })
+    }).catch((err) => sendError(res, err, err.message, err.status));
+};
 
-            User.comparePin(pin, user.pin, (err, isMatch) => {
-                if (err) return Promise.reject();
-
-                if (isMatch) {
-                    const userInfo = setUserInfo(user);
-                    const token = 'bearer ' + generateUserToken(userInfo);
-                    req.user = user;
-                    return sendSuccess(res, req.user, ResponseMessages.LOGIN_SUCCESSFUL, token);
-                } else {
-                    return sendError(res, null, ResponseMessages.INCORRECT_PIN, 400);
-                }
-            })
-        }).catch((err) => sendError(res, err, err.message, err.status));
-    };
-
-    /**
-     * Log user out successfully
-     * @param req
-     * @param res
-     */
-    const logoutUser = (req, res) => {
-        req.logout();
-        return sendSuccess(res, null, ResponseMessages.LOGOUT_SUCCESSFUL);
-    };
+/**
+ * Log user out successfully
+ * @param req
+ * @param res
+ */
+const logoutUser = (req, res) => {
+    req.logout();
+    return sendSuccess(res, null, ResponseMessages.LOGOUT_SUCCESSFUL);
+};
 
 
-    module.exports = {
-        registerUser,
-        handleLogin,
-        logoutUser
-    };
+module.exports = {
+    registerUser,
+    handleLogin,
+    logoutUser
+};

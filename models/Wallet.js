@@ -3,14 +3,21 @@ const Schema = mongoose.Schema;
 
 const WalletSchema = Schema({
     name: {type: String, default: 'Standard'},
-    owner: {
+    owners: [{
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
-    },
+    }],
     balance: {
         type: Number,
         default: 0.00
+    },
+    duration: {type: String, default: null},
+    description: {type: String, default: 'Standard Wallet'},
+    deduction_interval: {type: String, default: null},
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 

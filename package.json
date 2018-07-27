@@ -16,6 +16,7 @@
     "lodash": "^4.17.10",
     "mongoose": "^4.13.2",
     "morgan": "^1.9.0",
+    "node-mailer": "^0.1.1",
     "nodemon": "^1.18.3",
     "validator": "^10.4.0"
   }

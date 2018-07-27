@@ -4,7 +4,7 @@ const User = require('../models/User');
 const {sendSuccess, sendError, setUserInfo, generateUserToken} = require('./base.ctrl');
 const Constants = require('../constants/constants');
 const ResponseMessages = require('../constants/responseMessages');
-
+const WalletService = require('../services/WalletService');
 /**
  * Register user
  * @param req
@@ -27,13 +27,13 @@ const registerUser = (req, res) => {
     if (!validator.isEmail(email))
         return sendError(res, null, ResponseMessages.INVALID_EMAIL, 400);
 
-    if (pin < Constants.PIN_LENGTH)
+    if (pin.length < Constants.PIN_LENGTH)
         return sendError(res, null, ResponseMessages.PIN_LENGTH, 400);
 
-    if (!validator.isNumeric(parseInt(pin)))
+    if (!validator.isNumeric(pin))
         return sendError(res, null, ResponseMessages.PIN_SHOULD_CONTAIN, 400);
 
-    if (phone.slice(0, 4) !== '+234' || parseInt(phone).length !== 10)
+    if (phone.length !== 11)
         return sendError(res, null, ResponseMessages.INVALID_PHONE, 400);
 
     const params = {
@@ -46,28 +46,35 @@ const registerUser = (req, res) => {
 
     User.getUserByEmail(email, (err, user) => {
         if (err) return Promise.reject();
-        if (user) return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
-    });
+        if (user && user.length > 0) return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
 
-    User.getUserByPhone(phone, (err, user) => {
-        if (err) return Promise.reject();
-        if (user) return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
+        User.getUserByPhone(phone, (err, user) => {
 
-        if (!user) {
-            const newUser = new User(params);
-            newUser.createUser(newUser, (err, _user) => {
-                if (err || !_user) return Promise.reject();
+            if (err) return Promise.reject();
+            if (user && user.length > 0) return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
 
-                if (_user) {
-                    _user.createWallet();
-                    return _user.generateAuthToken().then((token) => {
-                        return sendSuccess(res, _user, ResponseMessages.USER_CREATED, token, 200, Constants.AUTH_HEADER);
-                    });
-                }
-            })
-        }
+            if (user.length === 0) {
+                const newUser = new User(params);
+                User.createUser(newUser, (err, _user) => {
+                    if (err || !_user) return Promise.reject();
+
+                    if (_user) {
+                        return _user.generateAuthToken().then((token) => {
+                            console.log(token, 'new token');
+
+
+                            return WalletService.createWallet(_user._id).then(wallet => {
+
+                                WalletService.pushWalletToUser(_user._id, wallet);
+                                return sendSuccess(res, _user, ResponseMessages.USER_CREATED, token, 200, Constants.AUTH_HEADER);
+                            })
+                        });
+                    }
+                })
+            }
+        })
     }).catch((err) => sendError(res, err, err.message, err.status));
-};
+}
 
 /**
  * Login user successfully

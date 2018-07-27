@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_sermons"
+        android:enabled="true"
+        android:icon="@drawable/ic_theaters_black_24dp"
+        android:title="@string/title_sermons" />
+
+    <item
+        android:id="@+id/navigation_blog"
+        android:enabled="true"
+        android:icon="@drawable/ic_forum_black_24dp"
+        android:title="@string/title_blog" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="@string/title_profile"  />
+
+</menu>

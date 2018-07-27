@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
-const Constants = require('./constants/responseMessages')
+const ResponseMessages = require('./constants/responseMessages');
 const indexRouter = require('./routes/index.rout');
 require('dotenv').config();
 const app = express();
@@ -39,9 +39,9 @@ app.use(function(err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.send({
-        status: Constants.ERROR_OCCURRED,
-        message: Constants.METHOD_NOT_IMPLEMENTED,
-        error: err.stack //JSON.stringify(err)
+        status: ResponseMessages.ERROR_OCCURRED,
+        message: ResponseMessages.METHOD_NOT_IMPLEMENTED,
+        error: err.stack
     });
 });
 

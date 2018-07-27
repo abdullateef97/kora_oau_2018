@@ -26,7 +26,7 @@ app.use(cors());
 // Routes
 app.use('/', indexRouter);
 app.use('/deposit', depositRouter)
-app.use('/transaction', transactionRouter)
+app.use('/transfer', transactionRouter)
 
 
 // catch 404 and forward to error handler

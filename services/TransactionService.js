@@ -21,6 +21,22 @@ createTransaction = (transactionObj, userId) => new Promise((resolve, reject) =>
     })
 }).catch(err => reject(err));
 
+
+getAllTransactions = (user_id) => new Promise((resolve, reject) => {
+    const conditions = { $or: [{ sender_id: user_id }, { receiver_id: user_id }] };
+    return Transaction.find(conditions).then(trans => {
+        if(!trans || trans.length <= 0) {throw new Error('No Transactions Exist')}
+        return resolve(trans)
+    }).catch(err => reject(err))
+})
+
+getOneTransaction = (trans_id) => new Promise((resolve, reject) => {
+    return Transaction.findOne({_id: trans_id}).then(trans => {
+        if(!trans || trans.length <= 0) throw new Error('No Transactions Exist');
+        return resolve(trans);
+    }).catch(err => reject(err));
+})
+
 _deductSenderAccount = ( sender_id, amount) => {
     return new Promise((resolve, reject) => {
         Wallet.findOne({creator: sender_id, name: 'Standard'}).then(wallet => {
@@ -43,4 +59,4 @@ _creditReceiverAccount = (wallets, receiver_id, amount) => new Promise((resolve,
     })
 })
 
-module.exports = {createTransaction}
+module.exports = {createTransaction, getAllTransactions, getOneTransaction}

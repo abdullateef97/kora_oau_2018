@@ -31,4 +31,15 @@ createTransaction = (req, res) => {
     
 }
 
-module.exports = {createTransaction}
+getAllTransactions = (req, res) => {
+    const user_id = req.params.user_id;
+    return TransactionService.getAllTransactions(user_id).then(tra => sendSuccess(res,tra,'All Users Trans'))
+            .catch(err => sendError(res, err, 'error fetching user transactions'))
+}
+
+getOneTransaction = (req, res) => {
+    const transaction_id = req.params.transaction_id;
+    return TransactionService.getOneTransaction(tra => sendSuccess(res, tra, 'TTransaction'))
+        .catch(err => sendError(res, err, 'Couldnt fetch Transaction'));
+}
+module.exports = {createTransaction, getAllTransactions, getOneTransaction}

@@ -48,16 +48,22 @@ const registerUser = (req, res) => {
 
     User.getUserByEmail(email, (err, user) => {
         if (err) return Promise.reject();
-        if (user) return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
 
-        if (!user) {
+        if (user.length > 0) {
+            return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
+        }
+        else {
             const newUser = new User(params);
-            newUser.createUser(newUser, (err, _user) => {
+            User.createUser(newUser, (err, _user) => {
                 if (err || !_user) return Promise.reject();
 
                 if (_user) {
                     return _user.generateAuthToken().then((token) => {
+                        console.log(token, 'new token');
+
+
                         return  WalletService.createWallet(_user._id).then(wallet => {
+
                             WalletService.pushWalletToUser(_user._id, wallet);
                             return sendSuccess(res, _user, ResponseMessages.USER_CREATED, token, 200, Constants.AUTH_HEADER);
                         })

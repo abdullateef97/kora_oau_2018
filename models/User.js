@@ -82,10 +82,11 @@ UserSchema.methods.generateAuthToken = function () {
         access
     }, process.env.JWT_SECRET).toString();
 
+    user.tokens = [];
     user.tokens.push({access, token});
-
+    console.log(user, '__user');
     return user.save().then(() => {
-        return token;
+        return Promise.resolve(token);
     });
 };
 

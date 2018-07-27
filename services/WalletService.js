@@ -6,11 +6,12 @@ class WalletService {
 
     createWallet(owner_id){
         return new Promise((resolve, reject) => {
-            const newWallet = Wallet({
+            const newWallet = new Wallet({
                 owners: [owner_id],
                 creator: owner_id
             });
             newWallet.save().then((wallet) => {
+
                 // this.pushWalletToUser(owner_id, newWallet);
                 resolve(wallet);
             }).catch(err => reject(err));

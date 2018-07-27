@@ -47,6 +47,11 @@ const registerUser = (req, res) => {
     User.getUserByEmail(email, (err, user) => {
         if (err) return Promise.reject();
         if (user) return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
+    });
+
+    User.getUserByPhone(phone, (err, user) => {
+        if (err) return Promise.reject();
+        if (user) return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
 
         if (!user) {
             const newUser = new User(params);
@@ -71,10 +76,10 @@ const registerUser = (req, res) => {
  * @returns {*}
  */
 const handleLogin = (req, res) => {
-    const email = req.body.email;
+    const phone = req.body.phone;
     const pin = req.body.pin;
 
-    return User.getUserByEmail(email, function (err, user) {
+    return User.getUserByPhone(phone, function (err, user) {
         if (err) return Promise.reject();
 
         if (!user)

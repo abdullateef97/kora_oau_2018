@@ -12,7 +12,6 @@ const WalletService = require('../services/WalletService');
  * @returns {*}
  */
 const registerUser = (req, res) => {
-    console.log(req.body,'body')
     const firstName = req.body.first_name,
         lastName = req.body.last_name,
         phone = req.body.phone,
@@ -33,7 +32,6 @@ const registerUser = (req, res) => {
 
     // if (!validator.isNumeric(parseInt(pin)))
     //     return sendError(res, null, ResponseMessages.PIN_SHOULD_CONTAIN, 400);
-    // console.log(2);
     //
     // if (phone.slice(0, 4) !== '+234' || parseInt(phone).length !== 10)
     //     return sendError(res, null, ResponseMessages.INVALID_PHONE, 400);
@@ -48,76 +46,81 @@ const registerUser = (req, res) => {
 
     User.getUserByEmail(email, (err, user) => {
         if (err) return Promise.reject();
+        if (user && user.length > 0) return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
 
-        if (user.length > 0) {
-            return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
-        }
-        else {
-            const newUser = new User(params);
-            User.createUser(newUser, (err, _user) => {
-                if (err || !_user) return Promise.reject();
+        User.getUserByPhone(phone, (err, user) => {
 
-                if (_user) {
-                    return _user.generateAuthToken().then((token) => {
-                        console.log(token, 'new token');
-
-
-                        return  WalletService.createWallet(_user._id).then(wallet => {
-
-                            WalletService.pushWalletToUser(_user._id, wallet);
-                            return sendSuccess(res, _user, ResponseMessages.USER_CREATED, token, 200, Constants.AUTH_HEADER);
-                        })
-                    });
-                }
-            })
-        }
-    }).catch((err) => sendError(res, err, err.message, err.status));
-};
-
-/**
- * Login user successfully
- * @param req
- * @param res
- * @returns {*}
- */
-const handleLogin = (req, res) => {
-    const email = req.body.email;
-    const pin = req.body.pin;
-
-    return User.getUserByEmail(email, function (err, user) {
-        if (err) return Promise.reject();
-
-        if (!user)
-            return sendError(res, null, ResponseMessages.INCORRECT_LOGIN_PARAMS, 400);
-
-        User.comparePin(pin, user.pin, (err, isMatch) => {
             if (err) return Promise.reject();
+            if (user && user.length > 0) return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
 
-            if (isMatch) {
-                const userInfo = setUserInfo(user);
-                const token = 'bearer ' + generateUserToken(userInfo);
-                req.user = user;
-                return sendSuccess(res, req.user, ResponseMessages.LOGIN_SUCCESSFUL, token);
-            } else {
-                return sendError(res, null, ResponseMessages.INCORRECT_PIN, 400);
+            if (user.length === 0) {
+                const newUser = new User(params);
+                User.createUser(newUser, (err, _user) => {
+                    if (err || !_user) return Promise.reject();
+
+                    if (_user) {
+                        _user.createWallet();
+                        return _user.generateAuthToken().then((token) => {
+                            console.log(token, 'new token');
+
+
+                            return WalletService.createWallet(_user._id).then(wallet => {
+
+                                WalletService.pushWalletToUser(_user._id, wallet);
+                                return sendSuccess(res, _user, ResponseMessages.USER_CREATED, token, 200, Constants.AUTH_HEADER);
+                            })
+                        });
+                    }
+                })
             }
         })
     }).catch((err) => sendError(res, err, err.message, err.status));
-};
+}
 
-/**
- * Log user out successfully
- * @param req
- * @param res
- */
-const logoutUser = (req, res) => {
-    req.logout();
-    return sendSuccess(res, null, ResponseMessages.LOGOUT_SUCCESSFUL);
-};
+    /**
+     * Login user successfully
+     * @param req
+     * @param res
+     * @returns {*}
+     */
+    const handleLogin = (req, res) => {
+        const email = req.body.email;
+        const pin = req.body.pin;
+
+        return User.getUserByPhone(phone, function (err, user) {
+            if (err) return Promise.reject();
+
+            if (!user)
+                return sendError(res, null, ResponseMessages.INCORRECT_LOGIN_PARAMS, 400);
+
+            User.comparePin(pin, user.pin, (err, isMatch) => {
+                if (err) return Promise.reject();
+
+                if (isMatch) {
+                    const userInfo = setUserInfo(user);
+                    const token = 'bearer ' + generateUserToken(userInfo);
+                    req.user = user;
+                    return sendSuccess(res, req.user, ResponseMessages.LOGIN_SUCCESSFUL, token);
+                } else {
+                    return sendError(res, null, ResponseMessages.INCORRECT_PIN, 400);
+                }
+            })
+        }).catch((err) => sendError(res, err, err.message, err.status));
+    };
+
+    /**
+     * Log user out successfully
+     * @param req
+     * @param res
+     */
+    const logoutUser = (req, res) => {
+        req.logout();
+        return sendSuccess(res, null, ResponseMessages.LOGOUT_SUCCESSFUL);
+    };
 
 
-module.exports = {
-    registerUser,
-    handleLogin,
-    logoutUser
-};
+    module.exports = {
+        registerUser,
+        handleLogin,
+        logoutUser
+    };

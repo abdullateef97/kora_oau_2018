@@ -16,6 +16,7 @@ mongoose.Promise = require('bluebird');
 mongoose.connect(process.env.DB_URL, { useMongoClient: true })
     .catch(err => console.error(err));
 
+
 app.use(morgan('dev')); // log every request to the console
 
 app.use(cors());

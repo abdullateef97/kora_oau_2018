@@ -47,10 +47,10 @@ const UserSchema = new Schema({
     },
     card: [],
     //Create card model- owner, cvv, expiry date, card no
-    wallet: {
+    wallets: [{
         type: Schema.Types.ObjectId,
         ref: 'Wallet'
-    },
+    }],
     kolo: [],
     //Create kolo model <= 3
     isAdmin: {type: Boolean, default: false},

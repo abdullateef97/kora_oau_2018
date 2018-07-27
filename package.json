@@ -1,0 +1,22 @@
+{
+  "name": "tranzact",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.0",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.3.0",
+    "lodash": "^4.17.10",
+    "mongoose": "^4.13.2",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.18.3",
+    "validator": "^10.4.0"
+  }
+}

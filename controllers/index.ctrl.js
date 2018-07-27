@@ -4,7 +4,7 @@ const User = require('../models/User');
 const {sendSuccess, sendError, setUserInfo, generateUserToken} = require('./base.ctrl');
 const Constants = require('../constants/constants');
 const ResponseMessages = require('../constants/responseMessages');
-
+const WalletService = require('../services/WalletService');
 /**
  * Register user
  * @param req
@@ -12,6 +12,7 @@ const ResponseMessages = require('../constants/responseMessages');
  * @returns {*}
  */
 const registerUser = (req, res) => {
+    console.log(req.body,'body')
     const firstName = req.body.first_name,
         lastName = req.body.last_name,
         phone = req.body.phone,
@@ -27,14 +28,15 @@ const registerUser = (req, res) => {
     if (!validator.isEmail(email))
         return sendError(res, null, ResponseMessages.INVALID_EMAIL, 400);
 
-    if (pin < Constants.PIN_LENGTH)
+    if (pin.length < Constants.PIN_LENGTH)
         return sendError(res, null, ResponseMessages.PIN_LENGTH, 400);
 
-    if (!validator.isNumeric(parseInt(pin)))
-        return sendError(res, null, ResponseMessages.PIN_SHOULD_CONTAIN, 400);
-
-    if (phone.slice(0, 4) !== '+234' || parseInt(phone).length !== 10)
-        return sendError(res, null, ResponseMessages.INVALID_PHONE, 400);
+    // if (!validator.isNumeric(parseInt(pin)))
+    //     return sendError(res, null, ResponseMessages.PIN_SHOULD_CONTAIN, 400);
+    // console.log(2);
+    //
+    // if (phone.slice(0, 4) !== '+234' || parseInt(phone).length !== 10)
+    //     return sendError(res, null, ResponseMessages.INVALID_PHONE, 400);
 
     const params = {
         first_name: firstName,
@@ -54,9 +56,11 @@ const registerUser = (req, res) => {
                 if (err || !_user) return Promise.reject();
 
                 if (_user) {
-                    _user.createWallet();
                     return _user.generateAuthToken().then((token) => {
-                        return sendSuccess(res, _user, ResponseMessages.USER_CREATED, token, 200, Constants.AUTH_HEADER);
+                        return  WalletService.createWallet(_user._id).then(wallet => {
+                            WalletService.pushWalletToUser(_user._id, wallet);
+                            return sendSuccess(res, _user, ResponseMessages.USER_CREATED, token, 200, Constants.AUTH_HEADER);
+                        })
                     });
                 }
             })

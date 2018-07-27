@@ -121,6 +121,9 @@ module.exports.getUserByEmail = (email, cb) => {
     return Promise.resolve(User.find({email}, cb));
 };
 
+module.exports.getUserByPhone = (phone, cb) => {
+    return Promise.resolve(User.find({phone}, cb));
+};
 module.exports.comparePin = (pin, hash, cb) => {
     bcrypt.compare(pin, hash, cb);
 };

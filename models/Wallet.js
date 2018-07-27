@@ -14,7 +14,11 @@ const WalletSchema = Schema({
     },
     duration: {type: String, default: null},
     description: {type: String, default: 'Standard Wallet'},
-    deduction_interval: {type: String}
+    deduction_interval: {type: String, default: null},
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 const Wallet = module.exports = mongoose.model('Wallet', WalletSchema);

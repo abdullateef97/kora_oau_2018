@@ -1,10 +1,8 @@
 const Wallet = require('../models/Wallet');
 const User = require('../models/User');
 
-class WalletService {
-    constructor(){};
 
-    createWallet(owner_id){
+    const createWallet = (owner_id) => {
         return new Promise((resolve, reject) => {
             const newWallet = new Wallet({
                 owners: [owner_id],
@@ -20,13 +18,13 @@ class WalletService {
         })
     }
 
-    pushWalletToUser(user_id, newWallet){
+    const pushWalletToUser = (user_id, newWallet) => {
         const query = {_id: user_id};
         User.findOne(query).then(user => {
             user.wallets.push(newWallet);
             user.save();
         })
     }
-}
 
-module.exports = WalletService;
+
+module.exports = {createWallet, pushWalletToUser};

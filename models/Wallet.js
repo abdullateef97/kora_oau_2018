@@ -18,7 +18,8 @@ const WalletSchema = Schema({
     creator: {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    type: {type: 'Number', default: 0}
 });
 
 const Wallet = module.exports = mongoose.model('Wallet', WalletSchema);

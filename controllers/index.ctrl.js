@@ -33,8 +33,8 @@ const registerUser = (req, res) => {
     if (!validator.isNumeric(pin))
         return sendError(res, null, ResponseMessages.PIN_SHOULD_CONTAIN, 400);
 
-    if (phone.length !== 11)
-        return sendError(res, null, ResponseMessages.INVALID_PHONE, 400);
+    // if (phone.length !== 11)
+    //     return sendError(res, null, ResponseMessages.INVALID_PHONE, 400);
 
     const params = {
         first_name: firstName,
@@ -53,7 +53,7 @@ const registerUser = (req, res) => {
             if (err) return Promise.reject();
             if (user && user.length > 0) return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
 
-            if (user.length === 0) {
+            if (!user) {
                 const newUser = new User(params);
                 User.createUser(newUser, (err, _user) => {
                     if (err || !_user) return Promise.reject();

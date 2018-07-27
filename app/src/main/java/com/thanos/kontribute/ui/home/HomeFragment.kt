@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import com.thanos.kontribute.App
 import com.thanos.kontribute.R
 import com.thanos.kontribute.data.model.Group
@@ -79,7 +77,7 @@ class HomeFragment : androidx.fragment.app.Fragment(),
         homePresenter.detachView()
     }
 
-    override fun onGroupSelected() {
+    override fun onGroupSelected(group: Group) {
 
     }
 

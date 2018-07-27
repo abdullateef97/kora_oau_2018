@@ -15,7 +15,7 @@ class GroupListAdapter(private var groupList: ArrayList<Group>,
         RecyclerView.Adapter<GroupListAdapter.GroupListViewHolder>() {
 
     interface GroupListListener {
-        fun onGroupSelected()
+        fun onGroupSelected(group: Group)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupListViewHolder {
@@ -44,7 +44,7 @@ class GroupListAdapter(private var groupList: ArrayList<Group>,
         }
 
         override fun onClick(view: View?) {
-            groupListListener.onGroupSelected()
+            groupListListener.onGroupSelected(groupList[adapterPosition])
         }
 
         fun bind(group: Group) {

@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.Window
 import android.widget.Toast
 import com.thanos.kontribute.ui.custom.ProgressDialog
+import java.text.DecimalFormat
 
 fun Activity.addFullScreenParameters() {
     this.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -30,7 +31,12 @@ fun Context.showProgressDialog() {
     progressDialog?.show()
 }
 
-
 fun Context.hideProgressDialog() {
     progressDialog?.cancel()
+}
+
+fun Int.toNaira(): String {
+    val decimalFormat = DecimalFormat("#,###")
+    val amount = decimalFormat.format(this)
+    return String.format("₦%1\$s.00", amount)
 }

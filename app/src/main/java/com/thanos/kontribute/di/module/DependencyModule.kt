@@ -2,6 +2,7 @@ package com.thanos.kontribute.di.module
 
 import com.atlascc.kontribute.data.remote.ApiService
 import com.thanos.kontribute.ui.home.HomePresenter
+import com.thanos.kontribute.ui.transactions.TransactionsPresenter
 import com.thanos.kontribute.ui.login.LoginPresenter
 import com.thanos.kontribute.ui.profile.ProfilePresenter
 import com.thanos.kontribute.ui.register.RegisterPresenter
@@ -35,6 +36,12 @@ class DependencyModule {
     @Singleton
     fun provideHomePresenter(): HomePresenter {
         return HomePresenter()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTransactionsPresenter(): TransactionsPresenter {
+        return TransactionsPresenter()
     }
 
 }

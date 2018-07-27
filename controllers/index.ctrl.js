@@ -45,7 +45,6 @@ const registerUser = (req, res) => {
     };
 
     User.getUserByEmail(email, (err, user) => {
-        console.log('User => ', user);
         if (err) return Promise.reject();
         if (user && user.length > 0) return sendSuccess(res, null, ResponseMessages.USER_ALREADY_EXISTS);
 
@@ -84,7 +83,7 @@ const registerUser = (req, res) => {
  * @returns {*}
  */
 const handleLogin = (req, res) => {
-    const email = req.body.email;
+    const phone = req.body.phone;
     const pin = req.body.pin;
 
     return User.getUserByPhone(phone, function (err, user) {

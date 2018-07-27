@@ -86,11 +86,10 @@ UserSchema.methods.generateAuthToken = function () {
         access
     }, process.env.JWT_SECRET).toString();
 
-    user.tokens = [];
     user.tokens.push({access, token});
-    console.log(user, '__user');
+
     return user.save().then(() => {
-        return Promise.resolve(token);
+        return token;
     });
 };
 
@@ -120,6 +119,7 @@ module.exports.getUserByEmail = (email, cb) => {
 module.exports.getUserByPhone = (phone, cb) => {
     return Promise.resolve(User.find({phone}, cb));
 };
+
 module.exports.comparePin = (pin, hash, cb) => {
     bcrypt.compare(pin, hash, cb);
 };

@@ -19,6 +19,7 @@
     "node-mailer": "^0.1.1",
     "nodemon": "^1.18.3",
     "paystack": "^2.0.1",
+    "unirest": "^0.5.1",
     "validator": "^10.4.0"
   }
 }

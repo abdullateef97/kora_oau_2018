@@ -1,6 +1,7 @@
 const paystack = require('paystack')(process.env.paystack)
 const Deposit = require('../models/Deposit');
 const Wallet = require('../models/Wallet');
+const PayStackHelper = require('../lib/paystackHelper');
 
 const createDeposit = (depositObj, user_id) => new Promise((resolve, reject) => {
     const deposit = new Deposit({
@@ -10,14 +11,19 @@ const createDeposit = (depositObj, user_id) => new Promise((resolve, reject) => 
     })
 
     return deposit.save().then(deposit => {
-        paystack.transaction.initialize({
+        const payObj = {
             reference : deposit._id,
             amount: parseInt(deposit.amount) *100,
             email: deposit.user_email
-        }, (err, body) => {
-            if(err) return reject(err);
-            return resolve(body.data);
-        });
+        }
+        const url = 'https://api.paystack.co/transaction/initialize'
+        PayStackHelper.postToPaystack(url, payObj).then((response) => {
+            const {body} = response
+                if(!body.status){
+                    throw new Error(body.message);
+                }
+                return resolve(body);
+        })
     });
 });
 

@@ -70,4 +70,7 @@ dependencies {
     //Debug DB
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
+    //Text Drawable
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
 }

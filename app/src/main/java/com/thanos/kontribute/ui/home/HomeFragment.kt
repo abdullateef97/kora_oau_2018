@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.thanos.kontribute.App
@@ -14,11 +15,13 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
 
-class HomeFragment : androidx.fragment.app.Fragment(), HomeContract.HomeView, PrayerPlanListAdapter.PrayerPlanListListener {
+class HomeFragment : androidx.fragment.app.Fragment(),
+        HomeContract.HomeView,
+        GroupListAdapter.GroupListListener {
 
     private var listener: OnHomeFragmentInteractionListener? = null
-    private lateinit var prayerPlanListAdapter: PrayerPlanListAdapter
-    private var prayerPlans: ArrayList<Group> = ArrayList()
+    private lateinit var groupListAdapter: GroupListAdapter
+    private var groups: ArrayList<Group> = ArrayList()
 
     @Inject
     lateinit var homePresenter: HomePresenter
@@ -38,26 +41,19 @@ class HomeFragment : androidx.fragment.app.Fragment(), HomeContract.HomeView, Pr
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //Category buttons onClickListener
+        setUpAdapter()
+        homePresenter.fetchGroups()
     }
 
-    override fun onResume() {
-        super.onResume()
+    private fun setUpAdapter() {
+        groupListAdapter = GroupListAdapter(groups, this)
+        rvGroups.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+        rvGroups.adapter = groupListAdapter
     }
 
-    private fun onCategoryButtonClicked(view: View) {
+    override fun showGroups(groups: ArrayList<Group>) {
+        groupListAdapter.updateGroups(groups)
     }
-
-    private fun setUpAdapter(addPadding: Boolean) {
-        prayerPlanListAdapter = PrayerPlanListAdapter(prayerPlans, this)
-        rvPrayerPlan.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        rvPrayerPlan.adapter = prayerPlanListAdapter
-        rvPrayerPlan.onFlingListener = null //Solve { An instance of OnFlingListener already set } error
-        LinearSnapHelper().attachToRecyclerView(rvPrayerPlan)
-    }
-
-
 
     override fun showProgress() {
         progressBar.visibility = View.VISIBLE
@@ -81,6 +77,10 @@ class HomeFragment : androidx.fragment.app.Fragment(), HomeContract.HomeView, Pr
         super.onDetach()
         listener = null
         homePresenter.detachView()
+    }
+
+    override fun onGroupSelected() {
+
     }
 
     interface OnHomeFragmentInteractionListener {

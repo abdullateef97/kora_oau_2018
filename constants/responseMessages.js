@@ -15,6 +15,8 @@ module.exports = {
     LOGIN_SUCCESSFUL: 'Successfully logged in',
     LOGOUT_SUCCESSFUL: 'Successfully logged out',
 
+    METHOD_NOT_IMPLEMENTED: 'Method not implemented',
+
     NOT_PERMITTED: 'We\'re sorry. You do not have access to this resource',
 
     PIN_LENGTH: `Pin can not be less than ${Constants.PIN_LENGTH} characters`,

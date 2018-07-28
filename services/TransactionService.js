@@ -42,6 +42,7 @@ _deductSenderAccount = ( sender_id, amount) => {
         Wallet.findOne({creator: sender_id, name: 'Standard'}).then(wallet => {
             let balance = wallet.balance;
             balance = balance - parseInt(amount);
+            if(balance< 0) {return reject({message: 'Not Suficient Balance'})}
             wallet.balance = balance;
             wallet.save().then(() => resolve()).catch(err => reject(err))
         })

@@ -6,7 +6,8 @@ const morgan = require('morgan');
 const ResponseMessages = require('./constants/responseMessages');
 const indexRouter = require('./routes/index.rout');
 const depositRouter = require('./routes/depositRoute');
-const transactionRouter = require('./routes/transactionRoute')
+const transactionRouter = require('./routes/transactionRoute');
+const withrawalRoute = require('./routes/withrawalRoute');
 require('dotenv').config();
 const app = express();
 
@@ -26,7 +27,8 @@ app.use(cors());
 // Routes
 app.use('/', indexRouter);
 app.use('/deposit', depositRouter)
-app.use('/transfer', transactionRouter)
+app.use('/transfer', transactionRouter);
+app.use('/withdraw', withrawalRoute)
 
 
 // catch 404 and forward to error handler

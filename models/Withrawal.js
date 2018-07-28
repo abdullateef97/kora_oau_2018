@@ -32,4 +32,4 @@ const WithrawalSchema = new Schema({
     timestamps: true,
 });
 
-const Withrawal = module.exports = mongoose.Schema('Withrawal', WithrawalSchema);
+const Withrawal = module.exports = mongoose.model('Withdrawal', WithrawalSchema);

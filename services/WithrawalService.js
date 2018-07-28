@@ -46,7 +46,7 @@ const _pushWithdrawalToPayStack = withdrawalBody => new Promise((resolve, reject
     .then(response => {
         const {body} = response
         if(!body.status){
-            throw new Error(body.message);
+            return reject(body.message);
         }
         return resolve(body);
     })

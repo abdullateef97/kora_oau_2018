@@ -30,7 +30,7 @@ class PayInsFragment : Fragment(), PayInsContract.PayInsView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_transactions, container, false)
+        return inflater.inflate(R.layout.fragment_payins, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

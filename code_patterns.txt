@@ -1,0 +1,7 @@
+* Controller names: controllerName.ctrl.js (Lowercase for first character)
+* Model names: ModelName.js (Uppercase for first character)
+* Always use 'var', 'const' or 'let' for variable declaration. Please don't leave it hanging.
+* Put all constants in app/constants/constants
+* Response messages in app/constants/responseMessages
+* Put a comment before any function block so we'll know what  it does without having to read the code. Saves time.
+* Response status => true/false.

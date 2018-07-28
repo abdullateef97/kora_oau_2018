@@ -107,6 +107,7 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
+                app:tabIndicatorHeight="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -117,27 +118,27 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <com.robertlevonyan.views.customfloatingactionbutton.FloatingActionLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_gravity="bottom|end">
-        <com.robertlevonyan.examples.customfloatingactionbutton.view.FloatingActionButton
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content" />
+    <!--<com.robertlevonyan.views.customfloatingactionbutton.FloatingActionLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:layout_gravity="bottom|end">-->
+        <!--<com.robertlevonyan.examples.customfloatingactionbutton.view.FloatingActionButton-->
+            <!--android:layout_width = "wrap_content"-->
+            <!--android:layout_height = "wrap_content" />-->
 
-        <com.robertlevonyan.examples.customfloatingactionbutton.view.FloatingActionButton
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content" />
+        <!--<com.robertlevonyan.examples.customfloatingactionbutton.view.FloatingActionButton-->
+            <!--android:layout_width = "wrap_content"-->
+            <!--android:layout_height = "wrap_content" />-->
 
-        <com.robertlevonyan.examples.customfloatingactionbutton.view.FloatingActionButton
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content" />
+        <!--<com.robertlevonyan.examples.customfloatingactionbutton.view.FloatingActionButton-->
+            <!--android:layout_width = "wrap_content"-->
+            <!--android:layout_height = "wrap_content" />-->
 
-        <com.robertlevonyan.examples.customfloatingactionbutton.view.FloatingActionButton
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content" />
+        <!--<com.robertlevonyan.examples.customfloatingactionbutton.view.FloatingActionButton-->
+            <!--android:layout_width = "wrap_content"-->
+            <!--android:layout_height = "wrap_content" />-->
 
-    </com.robertlevonyan.views.customfloatingactionbutton.FloatingActionLayout>
+    <!--</com.robertlevonyan.views.customfloatingactionbutton.FloatingActionLayout>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

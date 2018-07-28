@@ -1,0 +1,26 @@
+{
+  "name": "kontribute-api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "ascii-hex": "^1.0.1",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "ethjs": "^0.4.0",
+    "ethjs-provider-signer": "^0.1.4",
+    "ethjs-query": "^0.3.8",
+    "ethjs-signer": "^0.1.1",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.2",
+    "morgan": "^1.9.0",
+    "number-converter": "^1.2.1",
+    "paystack": "^2.0.1",
+    "to-ascii": "^0.1.0",
+    "unirest": "^0.5.1"
+  }
+}

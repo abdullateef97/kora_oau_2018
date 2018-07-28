@@ -45,7 +45,7 @@ class MembersFragment : Fragment(), MembersContract.MembersView {
     }
 
     private fun setUpAdapter() {
-        membersListAdapter = MembersListAdapter(members, this)
+        membersListAdapter = MembersListAdapter(members)
         rvMembers.layoutManager = LinearLayoutManager(context,  LinearLayoutManager.VERTICAL, false)
         rvMembers.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         rvMembers.adapter = membersListAdapter

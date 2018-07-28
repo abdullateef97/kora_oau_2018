@@ -76,4 +76,7 @@ dependencies {
     //Paystack
     implementation 'co.paystack.android:paystack:3.0.10'
 
+    //Firestore
+    implementation 'com.google.firebase:firebase-firestore:17.0.4'
+
 }

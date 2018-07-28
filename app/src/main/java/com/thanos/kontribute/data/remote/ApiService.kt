@@ -14,8 +14,7 @@ interface ApiService {
             @Field("amount") amount: String
     ): Call<InitializeTransactionResp>
 
-    @GET("api/verify/:reference/:save_auth/user_id")
-    @FormUrlEncoded
+    @GET("verify/{reference}/{save_auth}/{user_id}")
     fun confirmTransaction(
             @Path("reference") reference: String,
             @Path("save_auth") saveAuth: Boolean,

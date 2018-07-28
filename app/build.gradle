@@ -17,10 +17,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-//        multiDexEnabled = true
+        // Enabling multidex support.
+        multiDexEnabled true
 
         //urls
-        buildConfigField('String', 'paystack_public_key', '\"pk_test_6643231c63549f564d49c1abdba3dba66b03e722\"')
+        buildConfigField('String', 'paystack_public_key', '\"pk_test_d65bbeae4e1f291b93125c71caf1d0d946a9d68e\"')
     }
     buildTypes {
         release {
@@ -84,6 +85,9 @@ dependencies {
 
     //Firestore
     implementation 'com.google.firebase:firebase-firestore:17.0.4'
+
+    //Firebase Auth
+    implementation 'com.google.firebase:firebase-auth:16.0.2'
 
 //    //MultiDex
 //    implementation 'androidx.multidex:multidex:1.0.0-alpha1'

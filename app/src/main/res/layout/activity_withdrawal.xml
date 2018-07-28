@@ -66,17 +66,24 @@ tools:context=".ui.withdrawal.WithdrawalActivity">
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pay to"
+                    android:layout_marginTop="@dimen/d16"
+                    style="@style/BodyTextStyle"/>
+
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:id="@+id/spnMember"
-                    android:layout_marginTop="@dimen/d16">
+                    android:layout_marginTop="@dimen/d8">
 
                 </Spinner>
 
 
                 <Button
-                    android:id="@+id/btnWithdrawal"
+                    android:id="@+id/btnWithdraw"
                     style="@style/ButtonLabelStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

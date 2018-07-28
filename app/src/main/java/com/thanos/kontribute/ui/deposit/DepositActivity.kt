@@ -50,20 +50,22 @@ class DepositActivity : AppCompatActivity() {
 
         edtExpiration.addTextChangedListener(ExpiryWatcher())
 
-        card = Card.Builder(
-                edtCardNumber.text?.trim().toString(),
-                edtExpiration.text.toString().substring(0,2).toInt(),
-                edtExpiration.text.toString().substring(3,5).toInt(),
-                edtCVV.text.toString()
-        ).build()
-        if (card.isValid) {
-            if (!edtAmount.text.toString().isEmpty()) {
-                initializeTransaction()
+        btnPay.setOnClickListener {
+            card = Card.Builder(
+                    edtCardNumber.text?.trim().toString(),
+                    edtExpiration.text.toString().substring(0,2).toInt(),
+                    edtExpiration.text.toString().substring(3,5).toInt(),
+                    edtCVV.text.toString()
+            ).build()
+            if (card.isValid) {
+                if (!edtAmount.text.toString().isEmpty()) {
+                    initializeTransaction()
+                } else {
+                    showToast("Insert the amount you want to deposit")
+                }
             } else {
-                showToast("Insert the amount you want to deposit")
+                showToast("The card you entered is invalid, please confirm card details")
             }
-        } else {
-            showToast("The card you entered is invalid, please confirm card details")
         }
     }
 
@@ -72,24 +74,27 @@ class DepositActivity : AppCompatActivity() {
         email = sharedPrefHelper.getUser().email
         amount = edtAmount.text?.trim().toString()
         //API
-        apiService.initializeTransaction("","")
+        apiService.initializeTransaction("test@gmail.com","5000")
                 .enqueue(object : Callback<InitializeTransactionResp>{
                     override fun onFailure(call: Call<InitializeTransactionResp>?, t: Throwable?) {
                         showToast("Payment Initialization failed: " + t?.localizedMessage)
+                        hideProgressDialog()
                     }
 
                     override fun onResponse(call: Call<InitializeTransactionResp>?, response: Response<InitializeTransactionResp>?) {
                         response?.body()?.let {
                             val accessCode = it.data.access_code
-                            performCharge(accessCode)
+                            val reference = it.data.reference
+                            hideProgressDialog()
+                            performCharge(accessCode, reference)
                         }
                     }
 
                 })
     }
 
-    private fun performCharge(accessCode: String) {
-
+    private fun performCharge(accessCode: String, reference: String) {
+        showProgressDialog()
         val charge = Charge()
         charge.accessCode = accessCode
         charge.card = this.card
@@ -98,25 +103,34 @@ class DepositActivity : AppCompatActivity() {
             override fun onSuccess(transaction: Transaction?) {
                 Log.d("TEST", transaction?.reference)
                 val ref = transaction?.reference
-                confirmTransaction(ref)
+                hideProgressDialog()
+                if (ref == null) {
+                    confirmTransaction(ref)
+                } else {
+                    confirmTransaction(reference)
+                }
             }
 
             override fun beforeValidate(transaction: Transaction?) {
                 // Waiting
+                hideProgressDialog()
             }
 
             override fun onError(error: Throwable?, transaction: Transaction?) {
                 showToast("Payment Failed: " + error?.localizedMessage)
+                hideProgressDialog()
             }
         })
     }
 
     private fun confirmTransaction(ref: String?) {
+        showProgressDialog()
         val saveAuth = swtSaveCard.isChecked
-        apiService.confirmTransaction(ref!!,saveAuth, "")
+        apiService.confirmTransaction(ref!!,saveAuth, "1234")
                 .enqueue(object : Callback<ConfirmTransactionResp>{
                     override fun onFailure(call: Call<ConfirmTransactionResp>?, t: Throwable?) {
                         showToast("Payment Confirmation failed: " + t?.localizedMessage)
+                        hideProgressDialog()
                     }
 
                     override fun onResponse(call: Call<ConfirmTransactionResp>?, response: Response<ConfirmTransactionResp>?) {
@@ -124,6 +138,7 @@ class DepositActivity : AppCompatActivity() {
                             val transactionResp = it.data
                             //Send to Firebase
                             showToast("Payment Successful")
+                            hideProgressDialog()
                             finish()
                         }
                     }

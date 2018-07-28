@@ -7,5 +7,6 @@ data class InitializeTransactionResp(
 )
 
 data class AccessCode(
-        var access_code: String
+        var access_code: String,
+        var reference: String
 )

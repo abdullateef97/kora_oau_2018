@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.thanos.kontribute.App
 import com.thanos.kontribute.R
+import com.thanos.kontribute.helper.showToast
 import kotlinx.android.synthetic.main.activity_add_member.*
 
 class AddMemberActivity : AppCompatActivity() {
@@ -17,6 +18,11 @@ class AddMemberActivity : AppCompatActivity() {
         supportActionBar?.title = "Add Member"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         App.getInstance().getAppComponent().inject(this)
+
+        btnAddMember.setOnClickListener {
+            showToast("New Member Added")
+            finish()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

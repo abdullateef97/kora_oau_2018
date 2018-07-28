@@ -8,6 +8,8 @@ import com.thanos.kontribute.helper.BASE_URL
 import com.thanos.kontribute.helper.SharedPrefHelper
 import com.atlascc.kontribute.util.ImageUtil
 import com.atlascc.kontribute.util.NetworkUtil
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.thanos.kontribute.BuildConfig
@@ -91,5 +93,11 @@ class AppModule(var app: App) {
     @Singleton
     fun provideNetworkUtil(context: Context): NetworkUtil = NetworkUtil(context)
 
+    @Provides
+    @Singleton
+    fun provideFireStore(): FirebaseFirestore = FirebaseFirestore.getInstance()
 
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 }

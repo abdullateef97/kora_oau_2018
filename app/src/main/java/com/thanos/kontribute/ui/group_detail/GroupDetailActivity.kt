@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.thanos.kontribute.App
 import com.thanos.kontribute.R
+import com.thanos.kontribute.data.model.Group
+import com.thanos.kontribute.helper.toNaira
 import com.thanos.kontribute.ui.group_detail.members.MembersFragment
 import com.thanos.kontribute.ui.group_detail.pay_ins.PayInsFragment
 import com.thanos.kontribute.ui.group_detail.pay_outs.PayOutsFragment
@@ -19,6 +21,11 @@ class GroupDetailActivity : AppCompatActivity(),
         setContentView(R.layout.activity_group_detail)
 
         App.getInstance().getAppComponent().inject(this)
+
+        txt_view_amount.text = 50000.toNaira()
+        val group = intent.getParcelableExtra<Group>("group")
+        txt_view_group_name.text = group.title
+        txt_view_group_desc.text = group.description
 
         val fragments = arrayListOf<Fragment>(MembersFragment(), PayInsFragment(), PayOutsFragment())
         val titles = arrayListOf("Members", "PayIns", "PayOuts")

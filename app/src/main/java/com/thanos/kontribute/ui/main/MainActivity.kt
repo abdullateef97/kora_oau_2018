@@ -1,5 +1,6 @@
 package com.thanos.kontribute.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -10,7 +11,9 @@ import com.thanos.kontribute.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.thanos.kontribute.App
 import com.thanos.kontribute.R
+import com.thanos.kontribute.data.model.Group
 import com.thanos.kontribute.helper.TAG_TRANSACTIONS
+import com.thanos.kontribute.ui.group_detail.GroupDetailActivity
 import com.thanos.kontribute.ui.transactions.TransactionsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,7 +21,6 @@ class MainActivity : AppCompatActivity(),
         HomeFragment.OnHomeFragmentInteractionListener,
         TransactionsFragment.OnFragmentInteractionListener,
         ProfileFragment.OnProfileFragmentInteractionListener{
-
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val selectedFragment: Fragment?
@@ -40,6 +42,13 @@ class MainActivity : AppCompatActivity(),
             }
         }
         false
+    }
+
+
+    override fun goToGroupDetailActivity(group: Group) {
+        val intent = Intent(this, GroupDetailActivity::class.java);
+        intent.putExtra("group", group)
+        startActivity(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

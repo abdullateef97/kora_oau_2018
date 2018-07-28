@@ -47,6 +47,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
+    implementation 'com.robertlevonyan.view:CustomFloatingActionButton:2.0.5'
+
 
     //Coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"

@@ -99,11 +99,11 @@ class HomeFragment : androidx.fragment.app.Fragment(),
     }
 
     override fun onGroupSelected(group: Group) {
-
+        listener?.goToGroupDetailActivity(group)
     }
 
     interface OnHomeFragmentInteractionListener {
+        fun goToGroupDetailActivity(group: Group)
     }
-
 
 }

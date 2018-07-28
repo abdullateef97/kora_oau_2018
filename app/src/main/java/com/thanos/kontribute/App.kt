@@ -1,6 +1,7 @@
 package com.thanos.kontribute
 
 import android.app.Application
+import co.paystack.android.PaystackSdk
 import com.thanos.kontribute.di.component.AppComponent
 import com.thanos.kontribute.di.module.AppModule
 import com.thanos.kontribute.di.module.DependencyModule
@@ -20,6 +21,8 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
         mInstance = this
+        PaystackSdk.initialize(this)
+        PaystackSdk.setPublicKey(BuildConfig.paystack_public_key)
 //        initLeakCanary()
 
         appComponent = DaggerAppComponent.builder()

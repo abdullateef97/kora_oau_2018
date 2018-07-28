@@ -32,7 +32,7 @@ class CreateGroupActivity : AppCompatActivity(), CreateGroupContract.CreateGroup
         btnCreate.setOnClickListener {
             // THESE WILL GO TO PRESENTER
             if (edtTitle.text.isEmpty() || edtDescription.text.isEmpty()) {
-                showToast("Insert all the required fields")
+                showToast("Insert all the necessary fields")
             } else {
                 val group = Group(
                         title = edtTitle.text.trim().toString(),

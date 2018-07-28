@@ -17,6 +17,10 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+//        multiDexEnabled = true
+
+        //urls
+        buildConfigField('String', 'paystack_public_key', '\"pk_test_6643231c63549f564d49c1abdba3dba66b03e722\"')
     }
     buildTypes {
         release {
@@ -76,5 +80,15 @@ dependencies {
 
     //Text Drawable
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
+    //Paystack
+    implementation 'co.paystack.android:paystack:3.0.10'
+
+    //Firestore
+    implementation 'com.google.firebase:firebase-firestore:17.0.4'
+
+//    //MultiDex
+//    implementation 'androidx.multidex:multidex:1.0.0-alpha1'
+//    implementation 'androidx.multidex:multidex-instrumentation:1.0.0-alpha1'
 
 }

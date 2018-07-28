@@ -7,6 +7,7 @@ const ResponseMessages = require('./constants/responseMessages');
 const indexRouter = require('./routes/indexRoute');
 const depositRouter = require('./routes/depositRoute');
 const transactionRouter = require('./routes/transactionRoute');
+const walletRouter = require('./routes/walletRoute')
 const withrawalRoute = require('./routes/withrawalRoute');
 const ussdRoute = require('./routes/ussdRoute');
 
@@ -31,6 +32,7 @@ app.use('/', indexRouter);
 app.use('/deposit', depositRouter);
 app.use('/transfer', transactionRouter);
 app.use('/withdraw', withrawalRoute);
+app.use('/wallet', walletRouter)
 app.use('/ussd', ussdRoute);
 
 

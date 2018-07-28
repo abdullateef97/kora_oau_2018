@@ -23,7 +23,7 @@ createTransaction = (req, res) => {
         const transactionObj = new Transaction({
             amount: body.amount,
             receiver_phone: body.receiver_phone,
-            sender_phone: user.email
+            sender_phone: user.phone
         })
         TransactionService.createTransaction(transactionObj, user_Id).then(resp => {
             return sendSuccess(res, resp, 'Transaction Initialized')

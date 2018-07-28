@@ -12,9 +12,10 @@ const WalletSchema = Schema({
         type: Number,
         default: 0.00
     },
-    duration: {type: String, default: null},
+    end_date: {type: String, default: null},
     description: {type: String, default: 'Standard Wallet'},
-    deduction_interval: {type: String, default: null},
+    deduction_interval: {type: Number, default: null},
+    deduction_amount: {type: Number, default: null},
     creator: {
         type: Schema.Types.ObjectId,
         ref: 'User'

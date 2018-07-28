@@ -27,10 +27,34 @@ const createDeposit = (depositObj, user_id) => new Promise((resolve, reject) => 
     });
 });
 
+const verifyDeposit = (reference) => new Promise((resolve, reject) => {
+    return paystack.transaction.verify(reference, (err, body) => {
+        if(err) reject(err);
+        if(body.data.status === 'success'){
+            return _creditDepositorWallet(reference).then(response => resolve(response))
+        }else{ 
+            return reject({message: 'Deposit Failed'});
+        }
+    }).catch(err => reject(err));
+});
+
+
+const _creditDepositorWallet = (deposit_id) => new Promise((resolve, reject) => {
+    Deposit.findOne({_id: deposit_id}).then(depositDetails => {
+        if(!depositDetails || depositDetails == null){
+            return reject({message: 'Invalid Reference Id'})
+        }
+        Wallet.findOne({creator: depositDetails.user_id, name: 'Standard'}).then(wallet => {
+            wallet.balance += depositDetails.amount;
+            wallet.save().then(() => resolve(wallet))
+        })
+    }).catch(err => reject(err));
+})
+
 
 
 
 
 module.exports = {
-    createDeposit
+    createDeposit, verifyDeposit
 }

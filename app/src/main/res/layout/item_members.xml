@@ -22,16 +22,32 @@
         android:id="@+id/memberName"
         style="@style/HeaderTextStyle"
         android:layout_width="0dp"
-        android:padding="8dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:text="Emmanuel Kehinde"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/memberImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonAdmin"
+        android:layout_width="48dp"
+        android:layout_height="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Emmanuel Kehinde"
+        android:clickable="false"
+        android:visibility="gone"
+        android:background="@drawable/button_background_outlined"
+        android:text="Admin"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/memberImage"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

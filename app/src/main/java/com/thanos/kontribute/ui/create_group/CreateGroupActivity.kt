@@ -58,6 +58,7 @@ class CreateGroupActivity : AppCompatActivity(), CreateGroupContract.CreateGroup
 //                saveGroup(group)
 
                 setResult(Activity.RESULT_OK, Intent().putExtra(BUNDLE_NEW_GROUP, group))
+                showToast("Member Added")
                 finish()
             }
         }

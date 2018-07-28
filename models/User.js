@@ -97,7 +97,7 @@ UserSchema.methods.toJSON = function () {
     const user = this;
     const userObject = user.toObject();
 
-    return _.pick(userObject, ['_id', 'first_name', 'last_name', 'phone', 'email', 'bank', 'card', 'wallet', 'tokens'])
+    return _.pick(userObject, ['_id', 'first_name', 'last_name', 'phone', 'email', 'bank', 'card', 'wallets', 'tokens'])
 };
 
 const User = module.exports = mongoose.model('User', UserSchema);

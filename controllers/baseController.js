@@ -88,6 +88,26 @@ const authenticate = (req, res, next) => {
     });
 };
 
+const _decodeToken = token => new Promise((resolve, reject) => {
+    jwt.verify(token,
+                process.env.JWT_SECRET, (err, decoded) => {
+                    if(err) return reject(err);
+                    return resolve(decoded)
+                });
+}); 
+
+const verifyToken = (req, res, next) => {
+    const token = req.headers['x-auth'];
+    if(token){
+       return _decodeToken(token).then(decoded => {
+            const user_id = decoded._id;
+            req.user_Id = user_id;
+            return next();
+        }).catch(err => sendError(res, err, 'tokken couldnt be auth'))
+    } else {
+        return sendError(res, null, 'no access tokne provided');
+    }
+}
 const isLoggedIn = (req, res, next) => {
     if (req.user)
         return next();
@@ -102,5 +122,6 @@ module.exports = {
     setUserInfo,
     isAdmin,
     authenticate,
-    isLoggedIn
+    isLoggedIn,
+    verifyToken
 };

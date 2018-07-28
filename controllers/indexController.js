@@ -64,8 +64,11 @@ const registerUser = (req, res) => {
 
 
                             return WalletService.createWallet(_user._id).then(wallet => {
-                                WalletService.pushWalletToUser(_user._id, wallet);
-                                return sendSuccess(res, _user, ResponseMessages.USER_CREATED, token, 200, Constants.AUTH_HEADER);
+                                User.findOne({_id: _user._id})
+
+                                return WalletService.pushWalletToUser(_user._id, wallet).then(user => {
+                                    return sendSuccess(res, _user, ResponseMessages.USER_CREATED, token, 200, Constants.AUTH_HEADER);
+                                })
                             })
                         });
                     }

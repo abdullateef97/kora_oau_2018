@@ -12,7 +12,7 @@ const WithdrawalService = require('../services/WithrawalService');
 
 const addAccountNumber = (req, res) => {
     const {body} = req;
-    const user_id = body.user_id;
+    const user_id = req.user_Id;
     if(!body) return sendError(res, null, 'Fields Must Not Be Empty', 400);
     if(!body.account_number) return sendError(res, null, 'Account Number Not Specified', 400);
     if(!body.bank_code) return sendError(res, null, 'Bank Code Not Specified', 400);
@@ -35,7 +35,7 @@ const addAccountNumber = (req, res) => {
 const createWithdrawal = (req, res) => {
     const {body} = req;
     const {account_id} = req.params;
-    const user_id = body.user_id;
+    const user_id = req.user_Id;
     if(!body) return sendError(res, null, 'Fields Must Not Be Empty', 400);
     if(!body.amount) return sendError(res, null, 'Amount Not Specified', 400);
     // if(!body.bank_code) return sendError(res, null, 'Bank Code Not Specified', 400);

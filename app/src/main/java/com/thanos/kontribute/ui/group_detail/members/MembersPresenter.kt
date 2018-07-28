@@ -13,7 +13,7 @@ class MembersPresenter : MembersContract.MembersPresenter {
     override fun fetchGroupMembers() {
         membersView?.showProgress()
         val members = arrayListOf(
-                Member("", "Quadri Anifowose", "", false),
+                Member("", "Quadri Anifowose", "", true),
                 Member("", "Lateef Adeniran", "", false),
                 Member("", "Lanre Teriba", "", false),
                 Member("", "Mayomi Ayandiran", "", true),

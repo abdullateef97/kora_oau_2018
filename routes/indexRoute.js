@@ -1,7 +1,7 @@
 const app = require('express');
 const router = app.Router();
 
-const {registerUser, handleLogin, logoutUser} = require('../controllers/index.ctrl');
+const {registerUser, handleLogin, logoutUser} = require('../controllers/indexController');
 
 
 //Register new user [as a non-administrator]

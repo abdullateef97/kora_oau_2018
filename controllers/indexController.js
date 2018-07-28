@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const validator = require('validator');
 const User = require('../models/User');
-const {sendSuccess, sendError, setUserInfo, generateUserToken} = require('./base.ctrl');
+const {sendSuccess, sendError, setUserInfo, generateUserToken} = require('./baseController');
 const Constants = require('../constants/constants');
 const ResponseMessages = require('../constants/responseMessages');
 const WalletService = require('../services/WalletService');
@@ -64,7 +64,6 @@ const registerUser = (req, res) => {
 
 
                             return WalletService.createWallet(_user._id).then(wallet => {
-
                                 WalletService.pushWalletToUser(_user._id, wallet);
                                 return sendSuccess(res, _user, ResponseMessages.USER_CREATED, token, 200, Constants.AUTH_HEADER);
                             })

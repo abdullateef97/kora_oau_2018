@@ -13,4 +13,6 @@
     <string name="button_text_save_changes">Save Changes</string>
     <string name="button_text_edit_plan">Edit Plan</string>
     <string name="wallet_balance">Wallet Balance</string>
+    <string name="title_groups">Groups</string>
+    <string name="title_transactions">Transactions</string>
 </resources>

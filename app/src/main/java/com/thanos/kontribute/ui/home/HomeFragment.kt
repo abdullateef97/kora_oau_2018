@@ -1,24 +1,31 @@
 package com.thanos.kontribute.ui.home
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.GridLayoutManager
 import com.thanos.kontribute.App
 import com.thanos.kontribute.R
 import com.thanos.kontribute.data.model.Group
+import com.thanos.kontribute.helper.BUNDLE_NEW_GROUP
+import com.thanos.kontribute.ui.create_group.CreateGroupActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
 
-class HomeFragment : androidx.fragment.app.Fragment(), HomeContract.HomeView, PrayerPlanListAdapter.PrayerPlanListListener {
+class HomeFragment : androidx.fragment.app.Fragment(),
+        HomeContract.HomeView,
+        GroupListAdapter.GroupListListener {
 
     private var listener: OnHomeFragmentInteractionListener? = null
-    private lateinit var prayerPlanListAdapter: PrayerPlanListAdapter
-    private var prayerPlans: ArrayList<Group> = ArrayList()
+    private lateinit var groupListAdapter: GroupListAdapter
+    private var groups: ArrayList<Group> = ArrayList()
+    private val REQUEST_CODE_CREATE_GROUP: Int = 101
+
 
     @Inject
     lateinit var homePresenter: HomePresenter
@@ -38,26 +45,26 @@ class HomeFragment : androidx.fragment.app.Fragment(), HomeContract.HomeView, Pr
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpAdapter()
+        homePresenter.fetchGroups()
 
-        //Category buttons onClickListener
+        btnCreateGroup.setOnClickListener {
+            startActivityForResult(
+                    Intent(activity, CreateGroupActivity::class.java),
+                    REQUEST_CODE_CREATE_GROUP
+            )
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
+    private fun setUpAdapter() {
+        groupListAdapter = GroupListAdapter(groups, this)
+        rvGroups.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+        rvGroups.adapter = groupListAdapter
     }
 
-    private fun onCategoryButtonClicked(view: View) {
+    override fun showGroups(groups: ArrayList<Group>) {
+        groupListAdapter.updateGroups(groups)
     }
-
-    private fun setUpAdapter(addPadding: Boolean) {
-        prayerPlanListAdapter = PrayerPlanListAdapter(prayerPlans, this)
-        rvPrayerPlan.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        rvPrayerPlan.adapter = prayerPlanListAdapter
-        rvPrayerPlan.onFlingListener = null //Solve { An instance of OnFlingListener already set } error
-        LinearSnapHelper().attachToRecyclerView(rvPrayerPlan)
-    }
-
-
 
     override fun showProgress() {
         progressBar.visibility = View.VISIBLE
@@ -81,6 +88,18 @@ class HomeFragment : androidx.fragment.app.Fragment(), HomeContract.HomeView, Pr
         super.onDetach()
         listener = null
         homePresenter.detachView()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_CREATE_GROUP && resultCode == RESULT_OK) {
+            val group = data?.extras?.getParcelable(BUNDLE_NEW_GROUP) as Group
+            groupListAdapter.addGroup(group)
+        }
+    }
+
+    override fun onGroupSelected(group: Group) {
+
     }
 
     interface OnHomeFragmentInteractionListener {

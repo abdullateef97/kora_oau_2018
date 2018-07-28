@@ -10,10 +10,13 @@ import com.thanos.kontribute.ui.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.thanos.kontribute.App
 import com.thanos.kontribute.R
+import com.thanos.kontribute.helper.TAG_TRANSACTIONS
+import com.thanos.kontribute.ui.transactions.TransactionsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
         HomeFragment.OnHomeFragmentInteractionListener,
+        TransactionsFragment.OnFragmentInteractionListener,
         ProfileFragment.OnProfileFragmentInteractionListener{
 
 
@@ -25,16 +28,11 @@ class MainActivity : AppCompatActivity(),
                 loadFragment(selectedFragment, TAG_HOME)
                 return@OnNavigationItemSelectedListener true
             }
-//            R.id.navigation_sermons -> {
-//                selectedFragment = supportFragmentManager.findFragmentByTag(TAG_SERMONS) ?: SermonFragment()
-//                loadFragment(selectedFragment, TAG_SERMONS)
-//                return@OnNavigationItemSelectedListener true
-//            }
-//            R.id.navigation_blog -> {
-//                selectedFragment = supportFragmentManager.findFragmentByTag(TAG_BLOG) ?: BlogListFragment()
-//                loadFragment(selectedFragment, TAG_BLOG)
-//                return@OnNavigationItemSelectedListener true
-//            }
+            R.id.navigation_transactions -> {
+                selectedFragment = supportFragmentManager.findFragmentByTag(TAG_TRANSACTIONS) ?: TransactionsFragment()
+                loadFragment(selectedFragment, TAG_TRANSACTIONS)
+                return@OnNavigationItemSelectedListener true
+            }
             R.id.navigation_profile -> {
                 selectedFragment = supportFragmentManager.findFragmentByTag(TAG_PROFILE) ?: ProfileFragment()
                 loadFragment(selectedFragment, TAG_PROFILE)
@@ -53,22 +51,6 @@ class MainActivity : AppCompatActivity(),
         loadFragment(HomeFragment(), TAG_HOME)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        registerJob()
-    }
-
-    private fun registerJob() {
-
-//        val myJob = jobDispatcher.newJobBuilder()
-//                .setService(DailyService::class.java)
-//                .setRecurring(false)
-//                .setTag(TAG_DAILY_SERVICE)
-//                .setLifetime(Lifetime.FOREVER)
-//                .setTrigger(Trigger.NOW)
-//                .setReplaceCurrent(false)
-//                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
-//                .build()
-//
-//        jobDispatcher.mustSchedule(myJob)
     }
 
     private fun loadFragment(fragment: Fragment?, tag: String) {

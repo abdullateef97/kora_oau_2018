@@ -1,6 +1,7 @@
 package com.thanos.kontribute.di.module
 
 import com.atlascc.kontribute.data.remote.ApiService
+import com.thanos.kontribute.ui.create_group.CreateGroupPresenter
 import com.thanos.kontribute.ui.home.HomePresenter
 import com.thanos.kontribute.ui.transactions.TransactionsPresenter
 import com.thanos.kontribute.ui.login.LoginPresenter
@@ -44,4 +45,9 @@ class DependencyModule {
         return TransactionsPresenter()
     }
 
+    @Provides
+    @Singleton
+    fun provideCreateGroupPresenter(): CreateGroupPresenter {
+        return CreateGroupPresenter()
+    }
 }

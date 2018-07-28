@@ -36,6 +36,11 @@ class GroupListAdapter(private var groupList: ArrayList<Group>,
         notifyDataSetChanged()
     }
 
+    fun addGroup(group: Group) {
+        this.groupList.add(group)
+        notifyDataSetChanged()
+    }
+
     inner class GroupListViewHolder(itemView: View):
             RecyclerView.ViewHolder(itemView), View.OnClickListener {
 

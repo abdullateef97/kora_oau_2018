@@ -47,7 +47,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
-    implementation 'com.robertlevonyan.view:CustomFloatingActionButton:2.0.5'
 
 
     //Coroutine
@@ -90,6 +89,8 @@ dependencies {
 
     //Firebase Auth
     implementation 'com.google.firebase:firebase-auth:16.0.2'
+
+    implementation 'com.github.kobakei:MaterialFabSpeedDial:1.2.0'
 
 //    //MultiDex
 //    implementation 'androidx.multidex:multidex:1.0.0-alpha1'

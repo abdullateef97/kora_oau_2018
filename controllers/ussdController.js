@@ -5,8 +5,8 @@ const ResponseMessages = require('../constants/responseMessages');
 const {sendSuccess, sendError} = require('./baseController');
 
 const validatePhone = (req, res) => {
-    if (!validator.isNumeric(req.body.phone))
-        return sendError(res, null, ResponseMessages.INVALID_ENTRY, 400);
+    // if (!validator.isNumeric(req.body.phone))
+    //     return sendError(res, null, ResponseMessages.INVALID_ENTRY, 400);
 
     User.getUserByPhone(req.body.phone, (err, user) => {
         if (err) return Promise.reject();
@@ -20,8 +20,8 @@ const validatePin = (req, res) => {
     const phone = req.body.phone,
         pin = req.body.pin;
 
-    if (!validator.isNumeric(phone) || !validator.isNumeric(pin))
-        return sendError(res, null, ResponseMessages.INVALID_ENTRY, 400);
+    // if (!validator.isNumeric(phone) || !validator.isNumeric(pin))
+    //     return sendError(res, null, ResponseMessages.INVALID_ENTRY, 400);
 
     User.getUserByPhone(phone, (err, user) => {
         if (err) return Promise.reject();

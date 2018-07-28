@@ -5,7 +5,7 @@ const Wallet = require('../models/Wallet');
 
 
 createTransaction = (transactionObj, userId) => new Promise((resolve, reject) => {
-    User.findOne({email: transactionObj.receiver_email}).populate('wallets').then(user => {
+    User.findOne({email: transactionObj.receiver_phone}).populate('wallets').then(user => {
         transactionObj.sender_id = userId;
         transactionObj.receiver_id = user._id;
         const {wallets} = user

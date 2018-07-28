@@ -12,7 +12,7 @@ const WalletService = require('../services/WalletService');
 
 const createKolo = (req, res) => {
     const {body} = req;
-    const user_id = req.user_id;
+    const user_id = req.user_Id;
 
     WalletService.createKolo(body, user_id).then(wallet => sendSuccess(res, wallet, 'Kolo Succesfully Created'))
                     .catch(err => sendError(res, err, 'Kolo Not Created'))
@@ -20,7 +20,7 @@ const createKolo = (req, res) => {
 }
 
 const getAllWallets = (req, res) => {
-    const user_id = req.body.user_id;
+    const user_id = req.user_Id;
     WalletService.getAllWallets(user_id).then(wallets => sendSuccess(res, wallets, 'Wallets Fetched'))
                     .catch(err => sendError(res, err, 'Wallets Not Found'));
 }

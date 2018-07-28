@@ -13,7 +13,7 @@ const DepositService = require('../services/DepositService');
 const createDeposit = (req, res) => {
     const amount = req.body.amount;
     const user_email = req.body.user_email;
-    const user_id = req.body.user_id;
+    const user_id = req.user_Id;
 
 
     if(!req.body)  return sendError(res, null, ResponseMessages.ALL_FIELDS_REQUIRED, 400);

@@ -1,11 +1,13 @@
 const app = require('express');
 const router = app.Router();
+const {verifyToken} = require('../controllers/baseController')
+
 
 const TransactionController = require('../controllers/TransationController');
 
-router.post('/', TransactionController.createTransaction);
-router.get('/:user_id',TransactionController.getAllTransactions);
-router.get('/one/:transaction_id', TransactionController.getOneTransaction );
+router.post('/', verifyToken, TransactionController.createTransaction);
+router.get('/:user_id', verifyToken, TransactionController.getAllTransactions);
+router.get('/one/:transaction_id',verifyToken, TransactionController.getOneTransaction );
 
 
 module.exports = router;

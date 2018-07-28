@@ -10,7 +10,7 @@ const TransactionService = require('../services/TransactionService')
 
 createTransaction = (req, res) => {
     const {body} = req;
-    const user_Id = req.body.user_Id;
+    const user_Id = req.user_Id;
     if (!body) return sendError(res, null, 'Fields Must Not Be Empty', 400);
     if (!body.amount) return sendError(res, null, 'Amount Not Specified', 400);
     if (!body.receiver_phone) return sendError(res, null, 'Receiver Phone ', 400);

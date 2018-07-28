@@ -3,6 +3,7 @@ package com.thanos.kontribute.di.component
 import com.thanos.kontribute.di.module.AppModule
 import com.thanos.kontribute.di.module.DependencyModule
 import com.thanos.kontribute.ui.create_group.CreateGroupActivity
+import com.thanos.kontribute.ui.deposit.DepositActivity
 import com.thanos.kontribute.ui.home.HomeFragment
 import com.thanos.kontribute.ui.login.LoginActivity
 import com.thanos.kontribute.ui.main.MainActivity
@@ -22,6 +23,7 @@ interface AppComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(transactionsFragment: TransactionsFragment)
     fun inject(createGroupActivity: CreateGroupActivity)
+    fun inject(depositActivity: DepositActivity)
 
 
 }

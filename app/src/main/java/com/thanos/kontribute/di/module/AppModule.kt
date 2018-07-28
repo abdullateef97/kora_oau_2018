@@ -31,9 +31,9 @@ class AppModule(var app: App) {
     @Singleton
     fun provideOkHttpBuilder(): OkHttpClient.Builder =
             OkHttpClient.Builder()
-                    .connectTimeout(60, TimeUnit.SECONDS)
-                    .writeTimeout(60, TimeUnit.SECONDS)
-                    .readTimeout(60, TimeUnit.SECONDS)
+                    .connectTimeout(72, TimeUnit.SECONDS)
+                    .writeTimeout(72, TimeUnit.SECONDS)
+                    .readTimeout(72, TimeUnit.SECONDS)
 
     @Provides
     @Singleton

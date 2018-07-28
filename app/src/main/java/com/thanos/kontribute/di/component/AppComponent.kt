@@ -4,12 +4,14 @@ import com.thanos.kontribute.di.module.AppModule
 import com.thanos.kontribute.di.module.DependencyModule
 import com.thanos.kontribute.ui.create_group.CreateGroupActivity
 import com.thanos.kontribute.ui.deposit.DepositActivity
+import com.thanos.kontribute.ui.group_detail.AddMemberActivity
 import com.thanos.kontribute.ui.home.HomeFragment
 import com.thanos.kontribute.ui.login.LoginActivity
 import com.thanos.kontribute.ui.main.MainActivity
 import com.thanos.kontribute.ui.profile.ProfileFragment
 import com.thanos.kontribute.ui.register.RegisterActivity
 import com.thanos.kontribute.ui.transactions.TransactionsFragment
+import com.thanos.kontribute.ui.withdrawal.WithdrawalActivity
 import dagger.Component
 import javax.inject.Singleton
 
@@ -24,6 +26,8 @@ interface AppComponent {
     fun inject(transactionsFragment: TransactionsFragment)
     fun inject(createGroupActivity: CreateGroupActivity)
     fun inject(depositActivity: DepositActivity)
+    fun inject(withdrawalActivity: WithdrawalActivity)
+    fun inject(addMemberActivity: AddMemberActivity)
 
 
 }

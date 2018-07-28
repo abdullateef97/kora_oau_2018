@@ -73,4 +73,7 @@ dependencies {
     //Text Drawable
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 
+    //Paystack
+    implementation 'co.paystack.android:paystack:3.0.10'
+
 }

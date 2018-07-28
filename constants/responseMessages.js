@@ -7,6 +7,7 @@ module.exports = {
     ERROR_OCCURRED: 'An error occurred, please try again',
 
     INVALID_EMAIL: 'The email is invalid. Kindly enter a valid email',
+    INVALID_ENTRY: 'Invalid entry',
     INVALID_PHONE: 'The phone number is invalid. Kindly enter a valid Nigerian phone number',
     INCORRECT_LOGIN_PARAMS: 'Incorrect email or pin. Kindly confirm you have entered a valid email address or pin',
     INVALID_NAME_CHARACTER: 'Names can contain only letters. Not special characters e.g. @, #, *...',

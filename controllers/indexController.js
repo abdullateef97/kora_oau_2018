@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const validator = require('validator');
 const User = require('../models/User');
-const {sendSuccess, sendError, setUserInfo, generateUserToken} = require('./base.ctrl');
+const {sendSuccess, sendError, setUserInfo, generateUserToken} = require('./baseController');
 const Constants = require('../constants/constants');
 const ResponseMessages = require('../constants/responseMessages');
 const WalletService = require('../services/WalletService');

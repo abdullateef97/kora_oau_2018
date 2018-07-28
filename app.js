@@ -4,10 +4,12 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const ResponseMessages = require('./constants/responseMessages');
-const indexRouter = require('./routes/index.rout');
+const indexRouter = require('./routes/indexRoute');
 const depositRouter = require('./routes/depositRoute');
 const transactionRouter = require('./routes/transactionRoute');
 const withrawalRoute = require('./routes/withrawalRoute');
+const ussdRoute = require('./routes/ussdRoute');
+
 require('dotenv').config();
 const app = express();
 
@@ -26,9 +28,10 @@ app.use(cors());
 
 // Routes
 app.use('/', indexRouter);
-app.use('/deposit', depositRouter)
+app.use('/deposit', depositRouter);
 app.use('/transfer', transactionRouter);
-app.use('/withdraw', withrawalRoute)
+app.use('/withdraw', withrawalRoute);
+app.use('/ussd', ussdRoute);
 
 
 // catch 404 and forward to error handler

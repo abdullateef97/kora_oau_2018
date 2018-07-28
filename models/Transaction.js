@@ -10,11 +10,11 @@ const transactionSchema = new Schema({
     status: {
         type: Number,
     },
-    receiver_email: {
+    receiver_phone: {
         type: String,
         required: true
     },
-    sender_email: {
+    sender_phone: {
         type: String,
         required: true
     },

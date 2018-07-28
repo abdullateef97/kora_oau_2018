@@ -12,6 +12,7 @@ import com.thanos.kontribute.App
 import com.thanos.kontribute.R
 import com.thanos.kontribute.data.model.Group
 import com.thanos.kontribute.helper.BUNDLE_NEW_GROUP
+import com.thanos.kontribute.helper.showToast
 import com.thanos.kontribute.ui.create_group.CreateGroupActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
@@ -46,7 +47,6 @@ class HomeFragment : androidx.fragment.app.Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpAdapter()
-        homePresenter.fetchGroups()
 
         btnCreateGroup.setOnClickListener {
             startActivityForResult(
@@ -54,6 +54,11 @@ class HomeFragment : androidx.fragment.app.Fragment(),
                     REQUEST_CODE_CREATE_GROUP
             )
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homePresenter.fetchGroups()
     }
 
     private fun setUpAdapter() {
@@ -64,6 +69,10 @@ class HomeFragment : androidx.fragment.app.Fragment(),
 
     override fun showGroups(groups: ArrayList<Group>) {
         groupListAdapter.updateGroups(groups)
+    }
+
+    override fun showMessage(message: String) {
+        context?.showToast(message)
     }
 
     override fun showProgress() {

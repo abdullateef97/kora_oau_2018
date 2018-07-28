@@ -14,5 +14,6 @@ interface HomeContract {
         fun showProgress()
         fun hideProgress()
         fun showGroups(groups: ArrayList<Group>)
+        fun showMessage(message: String)
     }
 }

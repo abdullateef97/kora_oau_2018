@@ -22,6 +22,8 @@ class GroupDetailActivity : AppCompatActivity(),
 
     private val isAdmin: Boolean = true
 
+    private lateinit var group: Group
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_detail)
@@ -32,7 +34,7 @@ class GroupDetailActivity : AppCompatActivity(),
         setUpFab()
 
         txt_view_amount.text = 50000.toNaira()
-        val group = intent.getParcelableExtra<Group>("group")
+        group = intent.getParcelableExtra<Group>("group")
         txt_view_group_name.text = group.title
         txt_view_group_desc.text = group.description
 
@@ -65,14 +67,20 @@ class GroupDetailActivity : AppCompatActivity(),
             // do something
             when(textView?.text) {
                 DEPOSIT -> {
-                    startActivity(Intent(this@GroupDetailActivity, DepositActivity::class.java))
+                    startActivity(Intent(this@GroupDetailActivity, DepositActivity::class.java).apply {
+                        putExtra("group", group)
+                    })
                 }
                 WITHDRAW -> {
-                    startActivity(Intent(this@GroupDetailActivity, WithdrawalActivity::class.java))
+                    startActivity(Intent(this@GroupDetailActivity, WithdrawalActivity::class.java).apply {
+                        putExtra("group", group)
+                    })
 
                 }
                 ADD_MEMBER -> {
-                    startActivity(Intent(this@GroupDetailActivity, AddMemberActivity::class.java))
+                    startActivity(Intent(this@GroupDetailActivity, AddMemberActivity::class.java).apply {
+                        putExtra("group", group)
+                    })
                 }
             }
         }

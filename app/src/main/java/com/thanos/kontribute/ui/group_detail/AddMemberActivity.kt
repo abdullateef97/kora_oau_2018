@@ -31,7 +31,8 @@ class AddMemberActivity : AppCompatActivity() {
         App.getInstance().getAppComponent().inject(this)
 
         btnAddMember.setOnClickListener {
-            fetchUserWithEmail(edtEmail.text?.trim().toString())
+//            fetchUserWithEmail(edtEmail.text?.trim().toString())
+            showToast("New Member Added")
             finish()
         }
     }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import com.thanos.kontribute.R
 import com.thanos.kontribute.data.model.Member
+import kotlinx.android.synthetic.main.item_members.view.*
 
 class MembersListAdapter(private var members: ArrayList<Member>):
         RecyclerView.Adapter<MembersListAdapter.ViewHolder>() {

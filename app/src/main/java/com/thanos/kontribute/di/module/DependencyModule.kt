@@ -29,8 +29,8 @@ class DependencyModule {
 
     @Provides
     @Singleton
-    fun provideLoginPresenter(apiService: ApiService): LoginPresenter {
-        return LoginPresenter(apiService)
+    fun provideLoginPresenter(firebaseAuth: FirebaseAuth): LoginPresenter {
+        return LoginPresenter(firebaseAuth)
     }
 
     @Provides
@@ -41,8 +41,8 @@ class DependencyModule {
 
     @Provides
     @Singleton
-    fun provideHomePresenter(): HomePresenter {
-        return HomePresenter()
+    fun provideHomePresenter(firebaseAuth: FirebaseAuth, firestore: FirebaseFirestore): HomePresenter {
+        return HomePresenter(firebaseAuth, firestore)
     }
 
     @Provides

@@ -26,12 +26,12 @@ class RegisterPresenter(private var firebaseAuth: FirebaseAuth,
 
         firebaseAuth.createUserWithEmailAndPassword(user.email, password)
                 .addOnCompleteListener { result ->
-                    registerView?.hideProgress()
                     if (result.isSuccessful) {
                         user.id = firebaseAuth.currentUser?.uid!!
                         createUserInDb(user)
                     } else {
-                        registerView?.showMessage("Error trying to register your account, try again.")
+                        registerView?.hideProgress()
+                        registerView?.showMessage("Error trying to register your account: " + result.exception?.localizedMessage)
                     }
                 }
     }
@@ -41,10 +41,12 @@ class RegisterPresenter(private var firebaseAuth: FirebaseAuth,
                 .document(firebaseAuth.currentUser?.uid!!)
                 .set(user)
                 .addOnSuccessListener {
+                    registerView?.hideProgress()
                     registerView?.goToMainActivity()
                 }
                 .addOnFailureListener {
-                    registerView?.showMessage("Error trying to register your account, try again.")
+                    registerView?.hideProgress()
+                    registerView?.showMessage("Error trying to register your account: " + it.localizedMessage)
                 }
     }
 

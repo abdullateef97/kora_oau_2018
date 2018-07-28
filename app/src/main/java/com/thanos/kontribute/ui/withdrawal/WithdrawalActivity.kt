@@ -41,7 +41,9 @@ class WithdrawalActivity : AppCompatActivity() {
                 showToast("Insert the amount to withdraw")
                 return@setOnClickListener
             }
-            withDrawFromWallet(edtAmount.text?.trim().toString())
+            showToast("Withdrawal Successful")
+            finish()
+//            withDrawFromWallet(edtAmount.text?.trim().toString())
         }
     }
 

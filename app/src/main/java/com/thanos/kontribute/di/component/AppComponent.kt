@@ -14,6 +14,7 @@ import com.thanos.kontribute.ui.login.LoginActivity
 import com.thanos.kontribute.ui.main.MainActivity
 import com.thanos.kontribute.ui.profile.ProfileFragment
 import com.thanos.kontribute.ui.register.RegisterActivity
+import com.thanos.kontribute.ui.splash.SplashActivity
 import com.thanos.kontribute.ui.transactions.TransactionsFragment
 import com.thanos.kontribute.ui.withdrawal.WithdrawalActivity
 import dagger.Component
@@ -38,4 +39,5 @@ interface AppComponent {
     fun inject(payInsFragment: PayInsFragment)
     fun inject(payOutsFragment: PayOutsFragment)
     fun inject(groupDetailActivity: GroupDetailActivity)
+    fun inject(splashActivity: SplashActivity)
 }

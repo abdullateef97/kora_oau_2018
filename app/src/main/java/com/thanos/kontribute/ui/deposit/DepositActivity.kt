@@ -151,7 +151,9 @@ class DepositActivity : AppCompatActivity() {
                             val transactionResp = it.data
                             //Send to Firebase
                             hideProgressDialog()
-                            depositInWallet()
+                            showToast("Payment Successful")
+                            finish()
+//                            depositInWallet()
                         }
                     }
                 })

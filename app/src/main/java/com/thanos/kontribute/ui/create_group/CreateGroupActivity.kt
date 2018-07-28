@@ -13,6 +13,8 @@ import com.thanos.kontribute.R
 import com.thanos.kontribute.data.model.Group
 import com.thanos.kontribute.data.model.Member
 import com.thanos.kontribute.helper.BUNDLE_NEW_GROUP
+import com.thanos.kontribute.helper.hideProgressDialog
+import com.thanos.kontribute.helper.showProgressDialog
 import com.thanos.kontribute.helper.showToast
 import kotlinx.android.synthetic.main.activity_create_group.*
 import javax.inject.Inject
@@ -53,7 +55,7 @@ class CreateGroupActivity : AppCompatActivity(), CreateGroupContract.CreateGroup
                                 firebaseAuth.currentUser?.uid?.let { it1 -> Member(it1,"Test user", "", true) }
                         )
                 )
-                saveGroup(group)
+//                saveGroup(group)
 
                 setResult(Activity.RESULT_OK, Intent().putExtra(BUNDLE_NEW_GROUP, group))
                 finish()
@@ -61,16 +63,41 @@ class CreateGroupActivity : AppCompatActivity(), CreateGroupContract.CreateGroup
         }
     }
 
-    private fun saveGroup(group: Group) {
+    private fun saveGroup(hash: HashMap<String, String>) {
+        showProgressDialog()
+        val id = firestore.collection("groups")
+                .document().id
+        hash["id"] = id
         firestore.collection("groups")
-                .add(group)
+                .document(id)
+                .set(hash as Map<String, Any>)
                 .addOnSuccessListener {
                     documentReference ->
+
+                    addMember(id)
+                }
+                .addOnFailureListener {
+                    exception ->
+                    hideProgressDialog()
+                    showToast("Group creation failed: " + exception.localizedMessage)
+                }
+    }
+
+    private fun addMember(id: String) {
+        firestore.collection("groups")
+                .document(id)
+                .collection("members")
+                .document(firebaseAuth.currentUser?.uid!!)
+                .set(Member(firebaseAuth.currentUser?.uid!!,"Test User", "", true))
+                .addOnSuccessListener {
+                    documentReference ->
+                    hideProgressDialog()
                     showToast("Group created successfully")
                     finish()
                 }
                 .addOnFailureListener {
                     exception ->
+                    hideProgressDialog()
                     showToast("Group creation failed: " + exception.localizedMessage)
                 }
     }

@@ -8,7 +8,7 @@ const WalletController = require('../controllers/WalletController');
 
 router.post('/kolo', verifyToken, WalletController.createKolo);
 router.get('/', verifyToken, WalletController.getAllWallets);
-router.get('/aajo', verifyToken, WalletController.createAajo);
-router.get('/get_aajo_link', verifyToken, WalletController.getAajoUrl);
+router.post('/aajo', verifyToken, WalletController.createAajo);
+router.get('/get_aajo_link/:wallet_id', verifyToken, WalletController.getAajoUrl);
 
 module.exports = router

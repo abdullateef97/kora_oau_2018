@@ -19,7 +19,7 @@ const createKolo = (req, res) => {
 
 }
 
-const createAajo  = (re, res) => {
+const createAajo  = (req, res) => {
     const {body} = req;
     const user_id = req.user_Id;
     WalletService.createAajo(body, user_id).then(wallet => sendSuccess(res, wallet, 'Aajo Succesfully Created'))

@@ -47,6 +47,7 @@ class HomeFragment : androidx.fragment.app.Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpAdapter()
+        homePresenter.fetchGroups()
 
         btnCreateGroup.setOnClickListener {
             startActivityForResult(
@@ -54,11 +55,6 @@ class HomeFragment : androidx.fragment.app.Fragment(),
                     REQUEST_CODE_CREATE_GROUP
             )
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        homePresenter.fetchGroups()
     }
 
     private fun setUpAdapter() {

@@ -6,6 +6,10 @@ import android.os.Bundle
 import com.thanos.kontribute.App
 import com.thanos.kontribute.ui.main.MainActivity
 import com.thanos.kontribute.R
+import com.thanos.kontribute.R.id.btnLogin
+import com.thanos.kontribute.helper.hideProgressDialog
+import com.thanos.kontribute.helper.showProgressDialog
+import com.thanos.kontribute.helper.showToast
 import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
@@ -21,8 +25,20 @@ class LoginActivity : AppCompatActivity(), LoginContract.LoginView {
         loginPresenter.attachView(this)
 
         btnLogin.setOnClickListener {
-            loginPresenter.login()
+            loginPresenter.login("${edtEmail.text}", "${edtPassword.text}")
         }
+    }
+
+    override fun showProgress() {
+        showProgressDialog()
+    }
+
+    override fun hideProgress() {
+        hideProgressDialog()
+    }
+
+    override fun showMessage(message: String) {
+        showToast(message)
     }
 
     override fun goToMainActivity() {

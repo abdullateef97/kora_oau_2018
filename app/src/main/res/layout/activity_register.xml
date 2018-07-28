@@ -88,20 +88,20 @@
         app:layout_constraintTop_toBottomOf="@+id/constrainLayout1">
 
         <TextView
-            android:id="@+id/txtPassword"
+            android:id="@+id/txtFullName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="8dp"
-            android:text="Password"
+            android:text="Full Name"
             style="@style/BodyTextStyle"
-            app:layout_constraintBottom_toTopOf="@+id/edtPassword"
+            app:layout_constraintBottom_toTopOf="@+id/edtFullName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/edtPassword"
+            android:id="@+id/edtFullName"
             style="@style/EditTextStyle"
             android:layout_width="0dp"
             android:layout_height="@dimen/editTextHeight"
@@ -110,7 +110,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:ems="10"
-            android:inputType="textPassword"
+            android:inputType="text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -127,20 +127,20 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
         <TextView
-            android:id="@+id/txtConfirmPassword"
+            android:id="@+id/txtPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="8dp"
             style="@style/BodyTextStyle"
-            android:text="Confirm Password"
-            app:layout_constraintBottom_toTopOf="@+id/edtConfirmPassword"
+            android:text="Password"
+            app:layout_constraintBottom_toTopOf="@+id/edtPassword"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/edtConfirmPassword"
+            android:id="@+id/edtPassword"
             style="@style/EditTextStyle"
             android:layout_width="0dp"
             android:layout_height="@dimen/editTextHeight"

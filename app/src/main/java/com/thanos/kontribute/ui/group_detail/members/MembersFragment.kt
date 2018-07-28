@@ -17,8 +17,7 @@ import kotlinx.android.synthetic.main.fragment_members.*
 import javax.inject.Inject
 
 
-class MembersFragment : Fragment(), MembersContract.MembersView,
-        MembersListAdapter.MembersListListener {
+class MembersFragment : Fragment(), MembersContract.MembersView {
 
     private var listener: OnListFragmentInteractionListener? = null
     private lateinit var membersListAdapter: MembersListAdapter
@@ -62,10 +61,6 @@ class MembersFragment : Fragment(), MembersContract.MembersView,
 
     override fun showGroupMembers(members: ArrayList<Member>) {
         membersListAdapter.updateMembers(members)
-    }
-
-    override fun onMemberSelected(member: Member) {
-        Toast.makeText(context, member.name, Toast.LENGTH_SHORT).show()
     }
 
     override fun onAttach(context: Context) {

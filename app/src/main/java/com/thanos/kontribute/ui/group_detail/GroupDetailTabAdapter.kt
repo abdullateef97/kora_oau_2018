@@ -4,17 +4,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 
-class GroupDetailTabAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
+class GroupDetailTabAdapter(fm: FragmentManager, private val fragments: ArrayList<Fragment>,
+                            private val titles: ArrayList<String>): FragmentStatePagerAdapter(fm) {
 
-    var fragments = arrayListOf<Fragment>()
-    var titles = arrayListOf<String>()
-
-    fun addFragment (fragment: Fragment, title: String) {
-        fragments.add(fragment)
-        titles.add(title)
-    }
     override fun getItem(position: Int): Fragment = fragments[position]
 
     override fun getCount(): Int = fragments.size
 
+    override fun getPageTitle(position: Int): CharSequence? = titles[position]
 }

@@ -12,8 +12,11 @@ import co.paystack.android.Transaction
 import co.paystack.android.model.Card
 import co.paystack.android.model.Charge
 import com.atlascc.kontribute.data.remote.ApiService
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.thanos.kontribute.App
 import com.thanos.kontribute.R
+import com.thanos.kontribute.data.model.Group
 import com.thanos.kontribute.data.remote.response.ConfirmTransactionResp
 import com.thanos.kontribute.data.remote.response.InitializeTransactionResp
 import com.thanos.kontribute.helper.SharedPrefHelper
@@ -35,10 +38,16 @@ class DepositActivity : AppCompatActivity() {
     lateinit var apiService: ApiService
     @Inject
     lateinit var sharedPrefHelper: SharedPrefHelper
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
+    @Inject
+    lateinit var firestore: FirebaseFirestore
 
     private lateinit var email: String
     private lateinit var amount: String
     private lateinit var card: Card
+
+    private lateinit var group: Group
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +56,8 @@ class DepositActivity : AppCompatActivity() {
         supportActionBar?.title = "Deposit"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         App.getInstance().getAppComponent().inject(this)
+
+        group = intent?.getParcelableExtra("group")!!
 
         edtExpiration.addTextChangedListener(ExpiryWatcher())
 
@@ -71,10 +82,12 @@ class DepositActivity : AppCompatActivity() {
 
     private fun initializeTransaction() {
         showProgressDialog()
-        email = sharedPrefHelper.getUser().email
+        firebaseAuth.currentUser?.email?.let {
+            email = it
+        }
         amount = edtAmount.text?.trim().toString()
         //API
-        apiService.initializeTransaction("test@gmail.com","5000")
+        apiService.initializeTransaction(email,amount)
                 .enqueue(object : Callback<InitializeTransactionResp>{
                     override fun onFailure(call: Call<InitializeTransactionResp>?, t: Throwable?) {
                         showToast("Payment Initialization failed: " + t?.localizedMessage)
@@ -137,14 +150,31 @@ class DepositActivity : AppCompatActivity() {
                         response?.body()?.let {
                             val transactionResp = it.data
                             //Send to Firebase
-                            showToast("Payment Successful")
                             hideProgressDialog()
-                            finish()
+                            depositInWallet()
                         }
                     }
                 })
 
         hideProgressDialog()
+    }
+
+    private fun depositInWallet() {
+        showProgressDialog()
+
+        firestore.collection("group")
+                .document(group.id)
+                .update("balance", (group.balance + amount.toInt()))
+                .addOnSuccessListener {
+                    showToast("Payment Successful")
+                    finish()
+                }
+                .addOnFailureListener {
+                    showToast("Payment Failed: " + it.localizedMessage)
+                }
+
+
+
     }
 
 

@@ -118,27 +118,10 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!--<com.robertlevonyan.views.customfloatingactionbutton.FloatingActionLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="8dp"-->
-        <!--android:layout_gravity="bottom|end">-->
-        <!--<com.robertlevonyan.examples.customfloatingactionbutton.view.FloatingActionButton-->
-            <!--android:layout_width = "wrap_content"-->
-            <!--android:layout_height = "wrap_content" />-->
-
-        <!--<com.robertlevonyan.examples.customfloatingactionbutton.view.FloatingActionButton-->
-            <!--android:layout_width = "wrap_content"-->
-            <!--android:layout_height = "wrap_content" />-->
-
-        <!--<com.robertlevonyan.examples.customfloatingactionbutton.view.FloatingActionButton-->
-            <!--android:layout_width = "wrap_content"-->
-            <!--android:layout_height = "wrap_content" />-->
-
-        <!--<com.robertlevonyan.examples.customfloatingactionbutton.view.FloatingActionButton-->
-            <!--android:layout_width = "wrap_content"-->
-            <!--android:layout_height = "wrap_content" />-->
-
-    <!--</com.robertlevonyan.views.customfloatingactionbutton.FloatingActionLayout>-->
+    <io.github.kobakei.materialfabspeeddial.FabSpeedDial
+        android:id="@+id/fab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:fab_miniFabTextColor="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

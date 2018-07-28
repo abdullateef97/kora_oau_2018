@@ -62,7 +62,7 @@ tools:context=".ui.group_detail.AddMemberActivity">
                     android:layout_below="@+id/rave_card1"
                     android:layout_marginBottom="10dp"
                     android:hint="Email Address"
-                    android:inputType="number" />
+                    android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

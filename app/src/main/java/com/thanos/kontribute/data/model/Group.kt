@@ -8,5 +8,7 @@ data class Group (
         var id: String = "",
         var title: String,
         var description: String,
-        var color: Int
+        var balance: Int,
+        var color: Int,
+        var members: ArrayList<Member?>
 ) : Parcelable

@@ -6,18 +6,28 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import com.amulyakhare.textdrawable.util.ColorGenerator
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.thanos.kontribute.App
 import com.thanos.kontribute.R
 import com.thanos.kontribute.data.model.Group
+import com.thanos.kontribute.data.model.Member
 import com.thanos.kontribute.helper.BUNDLE_NEW_GROUP
 import com.thanos.kontribute.helper.showToast
 import kotlinx.android.synthetic.main.activity_create_group.*
 import javax.inject.Inject
 
+
 class CreateGroupActivity : AppCompatActivity(), CreateGroupContract.CreateGroupView {
 
     @Inject
     lateinit var createGroupPresenter: CreateGroupPresenter
+
+    @Inject
+    lateinit var firestore: FirebaseFirestore
+
+    @Inject
+    lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +47,32 @@ class CreateGroupActivity : AppCompatActivity(), CreateGroupContract.CreateGroup
                 val group = Group(
                         title = edtTitle.text.trim().toString(),
                         description = edtDescription.text.trim().toString(),
-                        color = ColorGenerator.MATERIAL.randomColor
+                        color = ColorGenerator.MATERIAL.randomColor,
+                        balance = 0,
+                        members = arrayListOf(
+                                firebaseAuth.currentUser?.uid?.let { it1 -> Member(it1,"Test user", "", true) }
+                        )
                 )
+                saveGroup(group)
+
                 setResult(Activity.RESULT_OK, Intent().putExtra(BUNDLE_NEW_GROUP, group))
                 finish()
             }
         }
+    }
+
+    private fun saveGroup(group: Group) {
+        firestore.collection("groups")
+                .add(group)
+                .addOnSuccessListener {
+                    documentReference ->
+                    showToast("Group created successfully")
+                    finish()
+                }
+                .addOnFailureListener {
+                    exception ->
+                    showToast("Group creation failed: " + exception.localizedMessage)
+                }
     }
 
     override fun showProgress() {

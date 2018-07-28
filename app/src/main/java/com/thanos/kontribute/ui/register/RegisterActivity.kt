@@ -7,6 +7,12 @@ import com.thanos.kontribute.App
 import com.thanos.kontribute.ui.login.LoginActivity
 import com.thanos.kontribute.ui.main.MainActivity
 import com.thanos.kontribute.R
+import com.thanos.kontribute.R.id.btnRegister
+import com.thanos.kontribute.R.id.txtLogin
+import com.thanos.kontribute.data.model.User
+import com.thanos.kontribute.helper.hideProgressDialog
+import com.thanos.kontribute.helper.showProgressDialog
+import com.thanos.kontribute.helper.showToast
 import kotlinx.android.synthetic.main.activity_register.*
 import javax.inject.Inject
 
@@ -22,7 +28,11 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.RegisterView {
         registerPresenter.attachView(this)
 
         btnRegister.setOnClickListener {
-            registerPresenter.register()
+            registerPresenter.register(
+                    User("", "${edtFullName.text}",
+                            "${edtEmail.text}", "",""),
+                    "${edtPassword.text}"
+            )
         }
 
         txtLogin.setOnClickListener {
@@ -44,5 +54,17 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.RegisterView {
     override fun onDestroy() {
         super.onDestroy()
         registerPresenter.detachView()
+    }
+
+    override fun showProgress() {
+        showProgressDialog()
+    }
+
+    override fun hideProgress() {
+        hideProgressDialog()
+    }
+
+    override fun showMessage(message: String) {
+        showToast(message)
     }
 }

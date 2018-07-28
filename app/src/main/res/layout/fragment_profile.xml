@@ -100,7 +100,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout1">
 
             <TextView
-                android:id="@+id/txtPassword"
+                android:id="@+id/txtFullName"
                 style="@style/BodyTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,12 +108,12 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="Password"
-                app:layout_constraintBottom_toTopOf="@+id/edtPassword"
+                app:layout_constraintBottom_toTopOf="@+id/edtFullName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/edtPassword"
+                android:id="@+id/edtFullName"
                 style="@style/EditTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/editTextHeight"

@@ -4,12 +4,11 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import com.thanos.kontribute.R
 import com.thanos.kontribute.data.model.Member
-import kotlinx.android.synthetic.main.item_members.view.*
 
-class MembersListAdapter(private var members: ArrayList<Member>,
-                         private var membersListListener: MembersListAdapter.MembersListListener):
+class MembersListAdapter(private var members: ArrayList<Member>):
         RecyclerView.Adapter<MembersListAdapter.ViewHolder>() {
 
     interface MembersListListener {
@@ -36,7 +35,19 @@ class MembersListAdapter(private var members: ArrayList<Member>,
             View.OnClickListener {
 
         override fun onClick(view: View?) {
-            membersListListener.onMemberSelected(members[adapterPosition])
+            val member = members[adapterPosition]
+            val popUp = PopupMenu(view?.context, view)
+            if (member.isAdmin) {
+                popUp.menuInflater.inflate(R.menu.member_menu_is_admin, popUp.menu)
+            } else {
+                popUp.menuInflater.inflate(R.menu.member_menu_not_admin, popUp.menu)
+            }
+            popUp.show()
+
+            popUp.setOnMenuItemClickListener {item ->
+                member.isAdmin = item.itemId != R.id.navigation_is_admin
+                return@setOnMenuItemClickListener false
+            }
         }
         fun bind(member: Member) {
             view.memberName.text = member.name

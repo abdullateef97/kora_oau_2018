@@ -47,7 +47,7 @@ class ProfileFragment : androidx.fragment.app.Fragment(), ProfileContract.Profil
 
     private fun enableEditing() {
         edtEmail.isEnabled = true
-        edtPassword.isEnabled = true
+        edtFullName.isEnabled = true
         btnSave.visibility = View.VISIBLE
         btnEdit.visibility = View.INVISIBLE
         editing = true
@@ -55,7 +55,7 @@ class ProfileFragment : androidx.fragment.app.Fragment(), ProfileContract.Profil
 
     private fun disableEditing() {
         edtEmail.isEnabled = false
-        edtPassword.isEnabled = false
+        edtFullName.isEnabled = false
         btnSave.visibility = View.INVISIBLE
         btnEdit.visibility = View.VISIBLE
         editing = false

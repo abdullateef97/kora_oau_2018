@@ -1,6 +1,8 @@
 package com.thanos.kontribute.di.module
 
 import com.atlascc.kontribute.data.remote.ApiService
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.thanos.kontribute.ui.create_group.CreateGroupPresenter
 import com.thanos.kontribute.ui.group_detail.members.MembersPresenter
 import com.thanos.kontribute.ui.group_detail.pay_ins.PayInsPresenter
@@ -20,8 +22,9 @@ class DependencyModule {
 
     @Provides
     @Singleton
-    fun provideRegisterPresenter(apiService: ApiService): RegisterPresenter {
-        return RegisterPresenter(apiService)
+    fun provideRegisterPresenter(firebaseAuth: FirebaseAuth, firestore: FirebaseFirestore):
+            RegisterPresenter {
+        return RegisterPresenter(firebaseAuth, firestore)
     }
 
     @Provides

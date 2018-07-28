@@ -21,8 +21,11 @@ fun Context.showLongToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
 
-fun Int.isValidPassword()
-        = "$this".length > 3
+fun String.isValidEmail()
+        = this.matches(Regex("([a-zA-Z0-9.-_]+)@([a-zA-Z0-9-]+)\\.(([a-zA-Z0-9.]){2,})"))
+
+fun String.isValidPassword()
+        = this.length > 3
 
 var progressDialog: ProgressDialog? = null
 

@@ -9,4 +9,4 @@ Thanos
 
 #### Your Solution
 
- Kontribute - Using Finttech to make money contribution easy and secure
+ Kontribute - Using Fintech to make money contribution easy and secure

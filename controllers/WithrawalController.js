@@ -3,8 +3,8 @@ const validator = require('validator');
 const User = require('../models/User');
 const Wallet = require('../models/Wallet');
 const Deposit = require('../models/Deposit');
-const Account = require('../models/Account')
-const Withdrawal = require('../models/Withrawal')
+const Account = require('../models/Account');
+const Withdrawal = require('../models/Withrawal');
 const {sendSuccess, sendError, setUserInfo, generateUserToken} = require('./baseController');
 const Constants = require('../constants/constants');
 const ResponseMessages = require('../constants/responseMessages');
@@ -46,14 +46,6 @@ const createWithdrawal = (req, res) => {
     WithdrawalService.createWithdrawal(WithdrawalObj, user_id, account_id).then(Withdrawal => sendSuccess(res,Withdrawal, 'Withdrawal Successful'))
             .catch(err => sendError(res, err, 'Couldnt init with'))
 }
-
-
-
-
-
-
-
-
 
 
 module.exports = {

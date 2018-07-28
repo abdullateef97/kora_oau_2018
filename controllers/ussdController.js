@@ -1,5 +1,6 @@
 const validator = require('validator');
 const User = require('../models/User');
+const Account = require('../models/Account');
 const ResponseMessages = require('../constants/responseMessages');
 const {sendSuccess, sendError} = require('./baseController');
 
@@ -34,7 +35,14 @@ const validatePin = (req, res) => {
     }).catch((err) => sendError(res, err, err.message, err.status));
 };
 
+const getAccountByUserId = (req, res) => {
+    const user_id = req.body.user_id;
+    Account.findOne({user_id}).then((acc) => sendSuccess(res, acc))
+        .catch((err) => sendError(res, err, err.message, err.status));
+};
+
 module.exports = {
     validatePhone,
-    validatePin
+    validatePin,
+    getAccountByUserId
 };

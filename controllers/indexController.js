@@ -67,7 +67,9 @@ const registerUser = (req, res) => {
                                 User.findOne({_id: _user._id})
 
                                 return WalletService.pushWalletToUser(_user._id, wallet).then(user => {
-                                    return sendSuccess(res, _user, ResponseMessages.USER_CREATED, token, 200, Constants.AUTH_HEADER);
+                                    return User.findOne({_id : _user._id}).populate('wallets').then(userr => {
+                                        return sendSuccess(res, userr, ResponseMessages.USER_CREATED, token, 200, Constants.AUTH_HEADER);
+                                    })
                                 })
                             })
                         });

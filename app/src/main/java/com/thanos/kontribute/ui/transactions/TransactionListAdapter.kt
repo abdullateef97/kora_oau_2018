@@ -1,16 +1,13 @@
 package com.thanos.kontribute.ui.transactions
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thanos.kontribute.R
-import com.thanos.kontribute.data.model.Group
 import com.thanos.kontribute.data.model.Transaction
 import com.thanos.kontribute.helper.toNaira
 import kotlinx.android.synthetic.main.item_transaction.view.*
-
 
 class TransactionListAdapter(private var transactionList: ArrayList<Transaction>,
                              private var transactionListListener: TransactionListListener):

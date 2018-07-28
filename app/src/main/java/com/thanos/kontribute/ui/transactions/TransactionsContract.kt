@@ -1,6 +1,5 @@
 package com.thanos.kontribute.ui.transactions
 
-import com.thanos.kontribute.data.model.Group
 import com.thanos.kontribute.data.model.Transaction
 import com.thanos.kontribute.ui.base.BasePresenter
 import com.thanos.kontribute.ui.base.BaseView
